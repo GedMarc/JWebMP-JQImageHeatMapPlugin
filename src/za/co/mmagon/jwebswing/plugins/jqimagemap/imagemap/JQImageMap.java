@@ -47,19 +47,46 @@ import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
         url = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/")
 public class JQImageMap<J extends JQImageMap>
         extends Component<ImageMapChildren, ImageMapAttributes, ImageMapFeatures, GlobalEvents, Component>
-        implements BodyChildren
+        implements BodyChildren, IJQImageMap
 {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The labels div
+     */
     private Div labelsDiv;
+    /**
+     * The legend div
+     */
     private Div legendDiv;
+    /**
+     * The map
+     */
     private Map map;
+    /**
+     * The image
+     */
     private Image image;
+    /**
+     * The image x size
+     */
     private int imageXSize;
+    /**
+     * The image y size
+     */
     private int imageYSize;
+    /**
+     * The display x size
+     */
     private int displayXSize;
+    /**
+     * The display y size
+     */
     private int displayYSize;
+    /**
+     * The label head div
+     */
     private Div labelHeadDiv;
 
     /**
@@ -171,6 +198,7 @@ public class JQImageMap<J extends JQImageMap>
      * @return True or false if added public Area addAreaToMap(String areaName, String polygonCoordinates) { Area a = new Area(ImageMapAreaShapes.Poly, polygonCoordinates);
      * a.addAttribute(GlobalAttributes.Name, areaName); this.map.add(a); return a; }
      */
+    @Override
     public Area addAreaToMap(String areaName, String polygonCoordinates)
     {
         HighlightedArea a = new HighlightedArea(ImageMapAreaShapes.Poly, polygonCoordinates);
@@ -186,18 +214,26 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return Always True
      */
+    @Override
     public boolean addAreaToMap(Area area)
     {
         this.map.add(area);
         return true;
     }
 
+    /**
+     * Adds an area to the component
+     */
+    @Override
     public Area add(Area area)
     {
         addAreaToMap(area);
         return area;
     }
 
+    /**
+     * TODO
+     */
     private void renderResize()
     {
         if (displayXSize != 0)
@@ -244,6 +280,12 @@ public class JQImageMap<J extends JQImageMap>
         }
     }
 
+    /**
+     * Returns the gradient feature or a new one
+     *
+     * @return
+     */
+    @Override
     public JQGradientsLinearFeature getGradientFeature()
     {
         if (gradientFeature == null)
@@ -376,6 +418,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public JQMapInteractiveFeature getDefaultProperties()
     {
         return defaultProperties;
@@ -386,6 +429,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param defaultProperties
      */
+    @Override
     public void setDefaultProperties(JQMapInteractiveFeature defaultProperties)
     {
         this.defaultProperties = defaultProperties;
@@ -396,6 +440,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public Map getMap()
     {
         return map;
@@ -406,6 +451,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param map
      */
+    @Override
     public void setMap(Map map)
     {
         this.map = map;
@@ -416,6 +462,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public Image getImage()
     {
         return image;
@@ -426,6 +473,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param image
      */
+    @Override
     public void setImage(Image image)
     {
         this.image = image;
@@ -436,6 +484,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public String getMapImageUrl()
     {
         return mapImageUrl;
@@ -446,6 +495,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param mapImageUrl
      */
+    @Override
     public void setMapImageUrl(String mapImageUrl)
     {
         this.mapImageUrl = mapImageUrl;
@@ -456,6 +506,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isHeatmap()
     {
         return heatmap;
@@ -466,6 +517,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param heatmap
      */
+    @Override
     public void setHeatmap(boolean heatmap)
     {
         this.heatmap = heatmap;
@@ -476,6 +528,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isInteractive()
     {
         return interactive;
@@ -486,6 +539,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isLegend()
     {
         return legend;
@@ -496,6 +550,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param legend
      */
+    @Override
     public void setLegend(boolean legend)
     {
         this.legend = legend;
@@ -506,6 +561,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param interactive
      */
+    @Override
     public void setInteractive(boolean interactive)
     {
         this.interactive = interactive;
@@ -524,6 +580,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public int getImageXSize()
     {
         return imageXSize;
@@ -534,6 +591,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param imageXSize
      */
+    @Override
     public void setImageXSize(int imageXSize)
     {
         this.imageXSize = imageXSize;
@@ -544,6 +602,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public int getImageYSize()
     {
         return imageYSize;
@@ -554,6 +613,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isValueDisplayed()
     {
         return valueDisplayed;
@@ -564,6 +624,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param valueDisplayed
      */
+    @Override
     public void setValueDisplayed(boolean valueDisplayed)
     {
         this.valueDisplayed = valueDisplayed;
@@ -574,6 +635,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param imageYSize
      */
+    @Override
     public void setImageYSize(int imageYSize)
     {
         this.imageYSize = imageYSize;
@@ -584,6 +646,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public int getDisplayXSize()
     {
         return displayXSize;
@@ -594,6 +657,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param displayXSize
      */
+    @Override
     public void setDisplayXSize(int displayXSize)
     {
         this.displayXSize = displayXSize;
@@ -604,6 +668,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public int getDisplayYSize()
     {
         return displayYSize;
@@ -614,6 +679,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param displayYSize
      */
+    @Override
     public void setDisplayYSize(int displayYSize)
     {
         this.displayYSize = displayYSize;
@@ -624,6 +690,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isLabeled()
     {
         return labeled;
@@ -634,6 +701,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param labeled
      */
+    @Override
     public void setLabeled(boolean labeled)
     {
         this.labeled = labeled;
@@ -644,6 +712,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public JQImageHeatMapFeature getHeatMap()
     {
         return heatMap;
@@ -654,6 +723,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param labelsDiv
      */
+    @Override
     public void setLabelsDiv(Div labelsDiv)
     {
         this.labelsDiv = labelsDiv;
@@ -664,6 +734,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param legendDiv
      */
+    @Override
     public void setLegendDiv(Div legendDiv)
     {
         this.legendDiv = legendDiv;
@@ -674,6 +745,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param labelHeadDiv
      */
+    @Override
     public void setLabelHeadDiv(Div labelHeadDiv)
     {
         this.labelHeadDiv = labelHeadDiv;
@@ -684,6 +756,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @param legendFeature
      */
+    @Override
     public void setLegendFeature(JQMapLegendFeature legendFeature)
     {
         this.legendFeature = legendFeature;
@@ -694,6 +767,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public Div getLabelsDiv()
     {
         return labelsDiv;
@@ -704,6 +778,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public Div getLegendDiv()
     {
         return legendDiv;
@@ -714,6 +789,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public Div getLabelHeadDiv()
     {
         return labelHeadDiv;
@@ -724,6 +800,7 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public JQMapLegendFeature getLegendFeature()
     {
         return legendFeature;
@@ -734,9 +811,20 @@ public class JQImageMap<J extends JQImageMap>
      *
      * @return
      */
+    @Override
     public boolean isRatioConfigured()
     {
         return ratioConfigured;
+    }
+
+    /**
+     * Neater version
+     *
+     * @return
+     */
+    public IJQImageMap asMe()
+    {
+        return this;
     }
 
 }
