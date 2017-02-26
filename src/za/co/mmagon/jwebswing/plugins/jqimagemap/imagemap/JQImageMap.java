@@ -26,10 +26,11 @@ import za.co.mmagon.jwebswing.base.html.attributes.*;
 import za.co.mmagon.jwebswing.base.html.interfaces.children.*;
 import za.co.mmagon.jwebswing.base.html.interfaces.events.GlobalEvents;
 import za.co.mmagon.jwebswing.base.servlets.enumarations.ComponentTypes;
-import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
 import za.co.mmagon.jwebswing.htmlbuilder.css.displays.DisplayCSS;
 import za.co.mmagon.jwebswing.htmlbuilder.css.displays.Positions;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
+import za.co.mmagon.jwebswing.plugins.ComponentInformation;
+import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
 
 /**
  * The image map component
@@ -41,6 +42,9 @@ import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
  * @version 0.1
  */
 @DisplayCSS(Position = Positions.Relative)
+@ComponentInformation(name = "An image map that can be built for a url",
+        description = "An image map with selectable colour coded areas that can be determined from a series of values.",
+        url = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/")
 public class JQImageMap<J extends JQImageMap>
         extends Component<ImageMapChildren, ImageMapAttributes, ImageMapFeatures, GlobalEvents, Component>
         implements BodyChildren
@@ -67,9 +71,14 @@ public class JQImageMap<J extends JQImageMap>
      */
     private final JQImageHeatMapFeature heatMap = new JQImageHeatMapFeature(this, 1, 1000000);
 
-    private final JQGradientsLinearFeature gradientFeature = new JQGradientsLinearFeature(this, this.heatMap.getColourMin(), this.heatMap.getColourMax(), "vertical");
-
-    private final JQMapLegendFeature legendFeature = new JQMapLegendFeature(this, gradientFeature);
+    /**
+     * The gradient feature
+     */
+    private JQGradientsLinearFeature gradientFeature;
+    /**
+     * The feature that will display the gradient legend
+     */
+    private JQMapLegendFeature legendFeature = new JQMapLegendFeature(this, gradientFeature);
 
     /**
      * The map URL
@@ -235,6 +244,18 @@ public class JQImageMap<J extends JQImageMap>
         }
     }
 
+    public JQGradientsLinearFeature getGradientFeature()
+    {
+        if (gradientFeature == null)
+        {
+            gradientFeature = new JQGradientsLinearFeature(this);
+            gradientFeature.getOptions().setDirection("vertical");
+            gradientFeature.getOptions().setToColour(getHeatMap().getColourMax());
+            gradientFeature.getOptions().setFromColour(getHeatMap().getColourMin());
+        }
+        return gradientFeature;
+    }
+
     @Override
     public void preConfigure()
     {
@@ -249,9 +270,10 @@ public class JQImageMap<J extends JQImageMap>
             addFeature(heatMap);
             if (isLegend())
             {
-                gradientFeature.setFromColour(this.heatMap.getColourMin());
-                gradientFeature.setToColour(this.heatMap.getColourMax());
-                gradientFeature.setDirection("vertical");
+
+                getGradientFeature().getOptions().setFromColour(this.heatMap.getColourMin());
+                getGradientFeature().getOptions().setToColour(this.heatMap.getColourMax());
+                getGradientFeature().getOptions().setDirection("vertical");
                 addFeature(legendFeature);
                 addFeature(gradientFeature);
                 if (!getChildren().contains(legendFeature.getLayoutDiv()))
@@ -272,7 +294,7 @@ public class JQImageMap<J extends JQImageMap>
             for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext();)
             {
                 HighlightedArea area = (HighlightedArea) it.next();
-                area.getInteractiveProperties().addProperty(JQMapInteractiveFeature.InteractiveFeatureProperties.overlayColorPermanent, heatMap.getColourForValue(area.getValue()));
+                area.getInteractiveProperties().addProperty(InteractiveFeatureProperties.overlayColorPermanent, heatMap.getColourForValue(area.getValue()));
             }
         }
 
@@ -628,13 +650,93 @@ public class JQImageMap<J extends JQImageMap>
     }
 
     /**
-     * Available image area shapes
+     * Sets the label div
+     *
+     * @param labelsDiv
      */
-    public enum ImageMapAreaShapes
+    public void setLabelsDiv(Div labelsDiv)
     {
-        Default,
-        Rect,
-        Circle,
-        Poly;
+        this.labelsDiv = labelsDiv;
     }
+
+    /**
+     * Sets the legend div
+     *
+     * @param legendDiv
+     */
+    public void setLegendDiv(Div legendDiv)
+    {
+        this.legendDiv = legendDiv;
+    }
+
+    /**
+     * Sets the label div
+     *
+     * @param labelHeadDiv
+     */
+    public void setLabelHeadDiv(Div labelHeadDiv)
+    {
+        this.labelHeadDiv = labelHeadDiv;
+    }
+
+    /**
+     * Sets the legend div
+     *
+     * @param legendFeature
+     */
+    public void setLegendFeature(JQMapLegendFeature legendFeature)
+    {
+        this.legendFeature = legendFeature;
+    }
+
+    /**
+     * Gets the actual labels
+     *
+     * @return
+     */
+    public Div getLabelsDiv()
+    {
+        return labelsDiv;
+    }
+
+    /**
+     * Gets the legend div
+     *
+     * @return
+     */
+    public Div getLegendDiv()
+    {
+        return legendDiv;
+    }
+
+    /**
+     * Gets the label head div
+     *
+     * @return
+     */
+    public Div getLabelHeadDiv()
+    {
+        return labelHeadDiv;
+    }
+
+    /**
+     * Gets the legend feature
+     *
+     * @return
+     */
+    public JQMapLegendFeature getLegendFeature()
+    {
+        return legendFeature;
+    }
+
+    /**
+     * If the ratio is currently configured for the screen
+     *
+     * @return
+     */
+    public boolean isRatioConfigured()
+    {
+        return ratioConfigured;
+    }
+
 }

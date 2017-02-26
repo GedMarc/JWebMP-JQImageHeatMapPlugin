@@ -16,6 +16,7 @@
  */
 package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 
+import za.co.mmagon.jwebswing.Component;
 import za.co.mmagon.jwebswing.Feature;
 import za.co.mmagon.jwebswing.base.html.Div;
 import za.co.mmagon.jwebswing.base.html.attributes.GlobalAttributes;
@@ -35,24 +36,33 @@ import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
 public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeature> implements ImageMapFeatures
 {
 
+    private static final long serialVersionUID = 1L;
+
     private JQGradientsLinearFeature gradientsFeature;// = new JQGradientsLinearFeature();
     private Div layoutDiv = new Div();
 
-    //private Div firstHalf = new Div();
-    //private Div secondHalf = new Div();
+    private Div firstHalf = new Div();
+    private Div secondHalf = new Div();
+
     public JQMapLegendFeature(JQImageMap imageMap, JQGradientsLinearFeature gradientFeature)
     {
         super("JWMapLegendFeature");
         this.gradientsFeature = gradientFeature;
+        setComponent(getLayoutDiv());
         layoutDiv.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
         //layoutDiv.add(secondHalf);
-        //firstHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-        //secondHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-        this.gradientsFeature.setComponentToApply(getLayoutDiv());
+        firstHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+        secondHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+
+        getGradientsFeature().setComponent(getLayoutDiv());
     }
 
     public JQGradientsLinearFeature getGradientsFeature()
     {
+        if (gradientsFeature == null)
+        {
+            gradientsFeature = new JQGradientsLinearFeature((Component) getComponent());
+        }
         return gradientsFeature;
     }
 

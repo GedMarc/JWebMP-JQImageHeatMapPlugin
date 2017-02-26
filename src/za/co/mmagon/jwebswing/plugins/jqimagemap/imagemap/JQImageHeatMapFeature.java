@@ -17,7 +17,6 @@
 package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import za.co.mmagon.jwebswing.Feature;
 import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
@@ -31,14 +30,40 @@ import za.co.mmagon.jwebswing.utilities.ColourUtils;
 public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> implements ImageMapFeatures
 {
 
-    private JQImageMap imageMap;
+    private static final long serialVersionUID = 1L;
+    /**
+     * The image map
+     */
+    private final JQImageMap imageMap;
     //private JQLayoutFeature imageMapFeature;
+    /**
+     * The minimum value
+     */
     private double minimumValue;
+    /**
+     * The maximum value
+     */
     private double maximumValue;
+    /**
+     * The colour for the minimum
+     */
     private String colourMin = "ffffff";
+    /**
+     * The colour for the maximum
+     */
     private String colourMax = "000000";
+    /**
+     * Array list of all the values
+     */
     private ArrayList<Double> allValues = new ArrayList<>();
 
+    /**
+     * Constructs a new image heat map java script portion
+     *
+     * @param imageMap
+     * @param minimumValue
+     * @param maximumValue
+     */
     public JQImageHeatMapFeature(JQImageMap imageMap, double minimumValue, double maximumValue)
     {
         super("JWHeatMapFeature");
@@ -46,6 +71,12 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
         setComponent(imageMap);
     }
 
+    /**
+     * Constructs a new image heat map java script portion
+     *
+     * @param imageMap
+     * @param allValues
+     */
     public JQImageHeatMapFeature(JQImageMap imageMap, ArrayList<Double> allValues)
     {
         super("JWHeatMapFeature");
@@ -56,6 +87,11 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
         this.maximumValue = getMaxNumber(allValues);
     }
 
+    /**
+     * Returns the minimum value
+     *
+     * @return
+     */
     public double getMinimumValue()
     {
         this.minimumValue = getMinNumber(allValues);
@@ -63,11 +99,21 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
         return minimumValue;
     }
 
+    /**
+     * Sets the minimum value
+     *
+     * @param minimumValue
+     */
     public void setMinimumValue(double minimumValue)
     {
         this.minimumValue = minimumValue;
     }
 
+    /**
+     * Returns the max value
+     *
+     * @return
+     */
     public double getMaximumValue()
     {
         this.minimumValue = getMinNumber(allValues);
@@ -75,11 +121,21 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
         return maximumValue;
     }
 
+    /**
+     * Sets the max value
+     *
+     * @param maximumValue
+     */
     public void setMaximumValue(double maximumValue)
     {
         this.maximumValue = maximumValue;
     }
 
+    /**
+     * Sets all the values
+     *
+     * @param allValues
+     */
     public void setValues(ArrayList<Double> allValues)
     {
         this.minimumValue = getMinNumber(allValues);
@@ -87,26 +143,52 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
         this.allValues = allValues;
     }
 
+    /**
+     * Gets the colour for a value
+     *
+     * @param value
+     * @return
+     */
     public String getColourForValue(double value)
     {
         return ColourUtils.getColourBetweenColours(getMinimumValue(), getMaximumValue(), value, getColourMin(), getColourMax());
     }
 
+    /**
+     * Gets the minimum colour
+     *
+     * @return
+     */
     public String getColourMin()
     {
         return colourMin;
     }
 
+    /**
+     * Sets the minimum colour
+     *
+     * @param colourMin
+     */
     public void setColourMin(String colourMin)
     {
         this.colourMin = colourMin;
     }
 
+    /**
+     * Returns the maximum colour
+     *
+     * @return
+     */
     public String getColourMax()
     {
         return colourMax;
     }
 
+    /**
+     * Sets the maximum colour
+     *
+     * @param colourMax
+     */
     public void setColourMax(String colourMax)
     {
         this.colourMax = colourMax;
@@ -121,9 +203,8 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
     {
         Double min = 999999999.0;
 
-        for (Iterator<Double> iterator = provinceValues.iterator(); iterator.hasNext();)
+        for (Double type : provinceValues)
         {
-            Double type = iterator.next();
             if (type < min)
             {
                 min = type;
@@ -141,9 +222,8 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
     {
         Double max = 0.0;
 
-        for (Iterator<Double> iterator = provinceValues.iterator(); iterator.hasNext();)
+        for (Double type : provinceValues)
         {
-            Double type = iterator.next();
             if (type > max)
             {
                 max = type;
@@ -157,11 +237,31 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, Feature> impl
      *
      * @return
      */
-    private double getMiddleNumber()
+    public double getMiddleNumber()
     {
         double min = getMinimumValue();
         double max = getMaximumValue();
         return (min + max) / 2;
+    }
+
+    /**
+     * Returns the image map
+     *
+     * @return
+     */
+    public JQImageMap getImageMap()
+    {
+        return imageMap;
+    }
+
+    /**
+     * Returns all the currently assigned values
+     *
+     * @return
+     */
+    public ArrayList<Double> getAllValues()
+    {
+        return allValues;
     }
 
 }

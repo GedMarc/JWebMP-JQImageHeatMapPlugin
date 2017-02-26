@@ -44,7 +44,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
 
     private static final Logger LOG = LogFactory.getInstance().getLogger("HighlightedArea");
     private static final long serialVersionUID = 1L;
-    private JQImageMap.ImageMapAreaShapes areaShape;
+    private ImageMapAreaShapes areaShape;
     private int[][] coordinatesArray;
     private String coordinates;
     private String prettyValue = "0.0";
@@ -60,7 +60,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
      * @param coordinates The co-ordinates of this area
      * @param name The name of this area
      */
-    public HighlightedArea(JQImageMap.ImageMapAreaShapes areaShape, String coordinates, String name)
+    public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates, String name)
     {
         super();
         this.areaShape = areaShape;
@@ -78,7 +78,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
      * @param areaShape The area shape
      * @param coordinates The co-ordinates of this area
      */
-    public HighlightedArea(JQImageMap.ImageMapAreaShapes areaShape, String coordinates)
+    public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
     {
         this(areaShape, coordinates, "MapArea");
     }
@@ -200,7 +200,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
      *
      * @return
      */
-    public JQImageMap.ImageMapAreaShapes getAreaShape()
+    public ImageMapAreaShapes getAreaShape()
     {
         return areaShape;
     }
@@ -210,7 +210,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
      *
      * @param areaShape
      */
-    public void setAreaShape(JQImageMap.ImageMapAreaShapes areaShape)
+    public void setAreaShape(ImageMapAreaShapes areaShape)
     {
         this.areaShape = areaShape;
     }
