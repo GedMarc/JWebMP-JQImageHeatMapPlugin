@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,7 +37,7 @@ import za.co.mmagon.jwebswing.plugins.PluginInformation;
                    pluginOriginalHomepage = "http://davidlynch.org/blog/2008/03/maphilight-image-map-mouseover-highlighting/",
                    pluginDownloadUrl = "https://sourceforge.net/projects/jwebswing/files/plugins/JQImageHeatMapPlugin.jar/download",
                    pluginIconUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
-                   pluginIconImageUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
+                   pluginIconImageUrl = "bower_components/jquery-image-heatmap/image_map_logo.png",
                    pluginLastUpdatedDate = "2017/03/04"
 )
 public class JQImageMapPageConfigurator
