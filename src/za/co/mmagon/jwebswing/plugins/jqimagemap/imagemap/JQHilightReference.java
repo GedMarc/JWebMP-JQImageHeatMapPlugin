@@ -19,23 +19,21 @@ package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 import za.co.mmagon.jwebswing.base.references.JavascriptReference;
 
 /**
- *
  * @author GedMarc
- * @since Mar 2, 2015
  * @version 1.0
  * <p>
- *
+ * @since Mar 2, 2015
  */
 public class JQHilightReference extends JavascriptReference
 {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     *
-     */
-    public JQHilightReference()
-    {
-        super("JQueryMapHilightReference", 1.0, "bower_components/jquery-image-heatmap/jquery.maphilight.js");
-    }
+	/**
+	 *
+	 */
+	public JQHilightReference()
+	{
+		super("JQueryMapHilightReference", 1.0, "bower_components/jquery-image-heatmap/jquery.maphilight.js");
+	}
 }

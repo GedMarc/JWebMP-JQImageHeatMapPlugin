@@ -16,265 +16,264 @@
  */
 package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 
-import java.text.DecimalFormat;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import za.co.mmagon.jwebswing.base.html.Area;
 import za.co.mmagon.jwebswing.base.html.attributes.AreaAttributes;
 import za.co.mmagon.jwebswing.base.html.attributes.GlobalAttributes;
 import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapChildren;
 import za.co.mmagon.logger.LogFactory;
 
+import java.text.DecimalFormat;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
  * @author GedMarc
  * @since 15 Feb 2017
- *
  */
 public class HighlightedArea extends Area implements ImageMapChildren
 {
 
-    private static final Logger LOG = LogFactory.getInstance().getLogger("HighlightedArea");
-    private static final long serialVersionUID = 1L;
-    private ImageMapAreaShapes areaShape;
-    private int[][] coordinatesArray;
-    private String coordinates;
-    private String prettyValue = "0.0";
-    private double value = 0.0;
-    private JQMapInteractiveFeature interactiveProperties;
-    private JQImageMap drillMap;
-    private DecimalFormat decimalFormat;
+	private static final Logger LOG = LogFactory.getInstance().getLogger("HighlightedArea");
+	private static final long serialVersionUID = 1L;
+	private ImageMapAreaShapes areaShape;
+	private int[][] coordinatesArray;
+	private String coordinates;
+	private String prettyValue = "0.0";
+	private double value = 0.0;
+	private JQMapInteractiveFeature interactiveProperties;
+	private JQImageMap drillMap;
+	private DecimalFormat decimalFormat;
 
-    /**
-     * Construct a new area tag with the given co-ordinates and area shape. A name is required
-     *
-     * @param areaShape The area shape
-     * @param coordinates The co-ordinates of this area
-     * @param name The name of this area
-     */
-    public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates, String name)
-    {
-        super();
-        this.areaShape = areaShape;
-        this.coordinatesArray = getArrayFromStringCoordinates(coordinates);
-        this.coordinates = coordinates;
-        addAttribute(GlobalAttributes.Name, name);
-        addAttribute(AreaAttributes.Coords, this.coordinates);
-        addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
-        setInlineClosingTag(true);
-    }
+	/**
+	 * Construct a new area tag with the given co-ordinates and area shape. A name is required
+	 *
+	 * @param areaShape   The area shape
+	 * @param coordinates The co-ordinates of this area
+	 * @param name        The name of this area
+	 */
+	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates, String name)
+	{
+		super();
+		this.areaShape = areaShape;
+		this.coordinatesArray = getArrayFromStringCoordinates(coordinates);
+		this.coordinates = coordinates;
+		addAttribute(GlobalAttributes.Name, name);
+		addAttribute(AreaAttributes.Coords, this.coordinates);
+		addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
+		setInlineClosingTag(true);
+	}
 
-    /**
-     * Construct a new area tag with the given co-ordinates and area shape. The name "MapArea" is assigned as a default for image maps
-     *
-     * @param areaShape The area shape
-     * @param coordinates The co-ordinates of this area
-     */
-    public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
-    {
-        this(areaShape, coordinates, "MapArea");
-    }
+	/**
+	 * Construct a new area tag with the given co-ordinates and area shape. The name "MapArea" is assigned as a default for image maps
+	 *
+	 * @param areaShape   The area shape
+	 * @param coordinates The co-ordinates of this area
+	 */
+	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
+	{
+		this(areaShape, coordinates, "MapArea");
+	}
 
-    /**
-     * If a drill through map is specified, returns this map
-     *
-     * @return
-     */
-    public JQImageMap getDrillMap()
-    {
-        return drillMap;
-    }
+	/**
+	 * Splits the co-ordinates into an array
+	 *
+	 * @param coordinates The Co-ordinate string
+	 *
+	 * @return The integer array of all the points
+	 */
+	public static synchronized int[][] getArrayFromStringCoordinates(String coordinates)
+	{
+		StringTokenizer st = new StringTokenizer(coordinates, ",");
+		int coordinateCount = st.countTokens() / 2;
+		int[][] coords = new int[coordinateCount][2];
+		int currentCoord = 0;
+		while (st.hasMoreElements())
+		{
+			try
+			{
+				String coord1 = (String) st.nextElement();
+				String coord2 = (String) st.nextElement();
+				coords[currentCoord][0] = Integer.parseInt(coord1);
+				coords[currentCoord][1] = Integer.parseInt(coord2);
+				currentCoord++;
+			}
+			catch (NullPointerException npe)
+			{
+				LOG.log(Level.WARNING, "Area format incorrect", npe);
+			}
+		}
+		return coords;
+	}
 
-    /**
-     * Sets the drill map drill through
-     *
-     * @param drillMap
-     */
-    public void setDrillMap(JQImageMap drillMap)
-    {
-        this.drillMap = drillMap;
-    }
+	/**
+	 * If a drill through map is specified, returns this map
+	 *
+	 * @return
+	 */
+	public JQImageMap getDrillMap()
+	{
+		return drillMap;
+	}
 
-    /**
-     * Pre-configures this component with all the required attributes and features
-     */
-    @Override
-    public void preConfigure()
-    {
-        if (coordinates != null)
-        {
-            addAttribute(AreaAttributes.Coords, this.coordinates);
-        }
-        if (areaShape != null)
-        {
-            addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
-        }
-        super.preConfigure();
-    }
+	/**
+	 * Sets the drill map drill through
+	 *
+	 * @param drillMap
+	 */
+	public void setDrillMap(JQImageMap drillMap)
+	{
+		this.drillMap = drillMap;
+	}
 
-    /**
-     * Returns the interactive properties of this feature
-     *
-     * @return
-     */
-    public JQMapInteractiveFeature getInteractiveProperties()
-    {
-        if (interactiveProperties == null)
-        {
-            interactiveProperties = new JQMapInteractiveFeature(null);
-        }
-        return interactiveProperties;
-    }
+	/**
+	 * Pre-configures this component with all the required attributes and features
+	 */
+	@Override
+	public void preConfigure()
+	{
+		if (coordinates != null)
+		{
+			addAttribute(AreaAttributes.Coords, this.coordinates);
+		}
+		if (areaShape != null)
+		{
+			addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
+		}
+		super.preConfigure();
+	}
 
-    /**
-     * Splits the co-ordinates into an array
-     *
-     * @param coordinates The Co-ordinate string
-     *
-     * @return The integer array of all the points
-     */
-    public static synchronized int[][] getArrayFromStringCoordinates(String coordinates)
-    {
-        StringTokenizer st = new StringTokenizer(coordinates, ",");
-        int coordinateCount = st.countTokens() / 2;
-        int[][] coords = new int[coordinateCount][2];
-        int currentCoord = 0;
-        while (st.hasMoreElements())
-        {
-            try
-            {
-                String coord1 = (String) st.nextElement();
-                String coord2 = (String) st.nextElement();
-                coords[currentCoord][0] = Integer.parseInt(coord1);
-                coords[currentCoord][1] = Integer.parseInt(coord2);
-                currentCoord++;
-            }
-            catch (NullPointerException npe)
-            {
-                LOG.log(Level.WARNING, "Area format incorrect", npe);
-            }
-        }
-        return coords;
-    }
+	/**
+	 * Returns the interactive properties of this feature
+	 *
+	 * @return
+	 */
+	public JQMapInteractiveFeature getInteractiveProperties()
+	{
+		if (interactiveProperties == null)
+		{
+			interactiveProperties = new JQMapInteractiveFeature(null);
+		}
+		return interactiveProperties;
+	}
 
-    /**
-     * Retrieves the Co-Ordinates array
-     *
-     * @return int[2]
-     */
-    public int[][] getCoordinatesArray()
-    {
-        return getArrayFromStringCoordinates(this.coordinates);
-    }
+	/**
+	 * Retrieves the Co-Ordinates array
+	 *
+	 * @return int[2]
+	 */
+	public int[][] getCoordinatesArray()
+	{
+		return getArrayFromStringCoordinates(this.coordinates);
+	}
 
-    /**
-     * Return the string form of the co-ordinates
-     *
-     * @return
-     */
-    public String getCoordinates()
-    {
-        return coordinates;
-    }
+	/**
+	 * Return the string form of the co-ordinates
+	 *
+	 * @return
+	 */
+	public String getCoordinates()
+	{
+		return coordinates;
+	}
 
-    /**
-     * Set the Co-ordinates
-     *
-     * @param coordinates
-     */
-    public void setCoordinates(String coordinates)
-    {
-        this.coordinates = coordinates;
-    }
+	/**
+	 * Set the Co-ordinates
+	 *
+	 * @param coordinates
+	 */
+	public void setCoordinates(String coordinates)
+	{
+		this.coordinates = coordinates;
+	}
 
-    /**
-     * Return the given area shape
-     *
-     * @return
-     */
-    public ImageMapAreaShapes getAreaShape()
-    {
-        return areaShape;
-    }
+	/**
+	 * Return the given area shape
+	 *
+	 * @return
+	 */
+	public ImageMapAreaShapes getAreaShape()
+	{
+		return areaShape;
+	}
 
-    /**
-     * sets the given area shape
-     *
-     * @param areaShape
-     */
-    public void setAreaShape(ImageMapAreaShapes areaShape)
-    {
-        this.areaShape = areaShape;
-    }
+	/**
+	 * sets the given area shape
+	 *
+	 * @param areaShape
+	 */
+	public void setAreaShape(ImageMapAreaShapes areaShape)
+	{
+		this.areaShape = areaShape;
+	}
 
-    /**
-     * Returns a value for this value
-     *
-     * @return
-     */
-    public double getValue()
-    {
-        return value;
-    }
+	/**
+	 * Returns a value for this value
+	 *
+	 * @return
+	 */
+	public double getValue()
+	{
+		return value;
+	}
 
-    /**
-     * Sets the value associated with this area
-     *
-     * @param value
-     */
-    public void setValue(double value)
-    {
-        this.value = value;
-    }
+	/**
+	 * Sets the value assigned to this area
+	 *
+	 * @param value
+	 */
+	public void setValue(String value)
+	{
+		this.prettyValue = value;
+	}
 
-    /**
-     * Sets the value assigned to this area
-     *
-     * @param value
-     */
-    public void setValue(String value)
-    {
-        this.prettyValue = value;
-    }
+	/**
+	 * Sets the value associated with this area
+	 *
+	 * @param value
+	 */
+	public void setValue(double value)
+	{
+		this.value = value;
+	}
 
-    /**
-     * Returns a pretty print version of the given are
-     *
-     * @return
-     */
-    public String getPrettyValue()
-    {
-        return prettyValue;
-    }
+	/**
+	 * Returns a pretty print version of the given are
+	 *
+	 * @return
+	 */
+	public String getPrettyValue()
+	{
+		return prettyValue;
+	}
 
-    /**
-     * Set the pretty value of the figure
-     *
-     * @param prettyValue
-     */
-    public void setPrettyValue(String prettyValue)
-    {
-        this.prettyValue = prettyValue;
-    }
+	/**
+	 * Set the pretty value of the figure
+	 *
+	 * @param prettyValue
+	 */
+	public void setPrettyValue(String prettyValue)
+	{
+		this.prettyValue = prettyValue;
+	}
 
-    /**
-     * Sets the Decimal Format of this area for pretty print
-     *
-     * @return
-     */
-    public DecimalFormat getDecimalFormat()
-    {
-        return decimalFormat;
-    }
+	/**
+	 * Sets the Decimal Format of this area for pretty print
+	 *
+	 * @return
+	 */
+	public DecimalFormat getDecimalFormat()
+	{
+		return decimalFormat;
+	}
 
-    /**
-     * Sets the Decimal Format of this area for pretty print
-     *
-     * @param decimalFormat
-     */
-    public void setDecimalFormat(DecimalFormat decimalFormat)
-    {
-        this.decimalFormat = decimalFormat;
-    }
+	/**
+	 * Sets the Decimal Format of this area for pretty print
+	 *
+	 * @param decimalFormat
+	 */
+	public void setDecimalFormat(DecimalFormat decimalFormat)
+	{
+		this.decimalFormat = decimalFormat;
+	}
 }

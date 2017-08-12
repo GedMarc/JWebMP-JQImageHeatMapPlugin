@@ -26,28 +26,27 @@ package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 import org.junit.Test;
 
 /**
- *
  * @author GedMarc
  */
 public class JQImageMapTest
 {
-
-    @Test
-    public void testIsRatioConfigured()
-    {
-        JQImageMap imageMap = new JQImageMap("image");
-        imageMap.setInteractive(true);
-        JQMapInteractiveFeature in = new JQMapInteractiveFeature(imageMap);
-        in.addProperty(InteractiveFeatureProperties.fill, "true");
-        in.addProperty(InteractiveFeatureProperties.overlayColorPermanent, "004d36");
-        in.addProperty(InteractiveFeatureProperties.overlayColorOpacity, "0.4");
-        System.out.println(in.getProperties(true));
-        System.out.println(in.getProperties(false));
-
-        System.out.println(imageMap.toString(true));
-
-        System.out.println(imageMap.renderJavascriptAll());
-
-    }
-
+	
+	@Test
+	public void testIsRatioConfigured()
+	{
+		JQImageMap imageMap = new JQImageMap("image");
+		imageMap.setInteractive(true);
+		JQMapInteractiveFeature in = new JQMapInteractiveFeature(imageMap);
+		in.addProperty(InteractiveFeatureProperties.fill, "true");
+		in.addProperty(InteractiveFeatureProperties.overlayColorPermanent, "004d36");
+		in.addProperty(InteractiveFeatureProperties.overlayColorOpacity, "0.4");
+		System.out.println(in.getProperties(true));
+		System.out.println(in.getProperties(false));
+		
+		System.out.println(imageMap.toString(true));
+		
+		System.out.println(imageMap.renderJavascriptAll());
+		
+	}
+	
 }

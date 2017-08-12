@@ -17,6 +17,6 @@
     "tests"
   ],
   "dependencies": {
-	"jquery-image-heatmap": "*"
+    "jquery-image-heatmap": "*"
   }
 }

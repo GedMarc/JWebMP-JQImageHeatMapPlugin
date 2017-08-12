@@ -27,58 +27,56 @@ import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
 /**
  * Adds a legend below a heat map
  *
- * @since 2013/11/27 03:06
- * @version 1.0
  * @author MMagon
- *
- *
+ * @version 1.0
+ * @since 2013/11/27 03:06
  */
 public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeature> implements ImageMapFeatures
 {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private JQGradientsLinearFeature gradientsFeature;// = new JQGradientsLinearFeature();
-    private Div layoutDiv = new Div();
+	private JQGradientsLinearFeature gradientsFeature;// = new JQGradientsLinearFeature();
+	private Div layoutDiv = new Div();
 
-    private Div firstHalf = new Div();
-    private Div secondHalf = new Div();
+	private Div firstHalf = new Div();
+	private Div secondHalf = new Div();
 
-    public JQMapLegendFeature(JQImageMap imageMap, JQGradientsLinearFeature gradientFeature)
-    {
-        super("JWMapLegendFeature");
-        this.gradientsFeature = gradientFeature;
-        setComponent(getLayoutDiv());
-        layoutDiv.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-        //layoutDiv.add(secondHalf);
-        firstHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-        secondHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+	public JQMapLegendFeature(JQImageMap imageMap, JQGradientsLinearFeature gradientFeature)
+	{
+		super("JWMapLegendFeature");
+		this.gradientsFeature = gradientFeature;
+		setComponent(getLayoutDiv());
+		layoutDiv.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+		//layoutDiv.add(secondHalf);
+		firstHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+		secondHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
 
-        getGradientsFeature().setComponent(getLayoutDiv());
-    }
+		getGradientsFeature().setComponent(getLayoutDiv());
+	}
 
-    public JQGradientsLinearFeature getGradientsFeature()
-    {
-        if (gradientsFeature == null)
-        {
-            gradientsFeature = new JQGradientsLinearFeature((Component) getComponent());
-        }
-        return gradientsFeature;
-    }
+	public JQGradientsLinearFeature getGradientsFeature()
+	{
+		if (gradientsFeature == null)
+		{
+			gradientsFeature = new JQGradientsLinearFeature((Component) getComponent());
+		}
+		return gradientsFeature;
+	}
 
-    public void setGradientsFeature(JQGradientsLinearFeature gradientsFeature)
-    {
-        this.gradientsFeature = gradientsFeature;
-    }
+	public void setGradientsFeature(JQGradientsLinearFeature gradientsFeature)
+	{
+		this.gradientsFeature = gradientsFeature;
+	}
 
-    public Div getLayoutDiv()
-    {
-        return layoutDiv;
-    }
+	public Div getLayoutDiv()
+	{
+		return layoutDiv;
+	}
 
-    public void setLayoutDiv(Div layoutDiv)
-    {
-        this.layoutDiv = layoutDiv;
-    }
+	public void setLayoutDiv(Div layoutDiv)
+	{
+		this.layoutDiv = layoutDiv;
+	}
 
 }

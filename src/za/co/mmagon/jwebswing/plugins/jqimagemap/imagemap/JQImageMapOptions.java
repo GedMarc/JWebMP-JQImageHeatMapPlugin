@@ -20,24 +20,23 @@ import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavascriptPartType;
 
 /**
- *
  * @author Marc Magon
- * @since 30 Aug 2015
  * @version 1.0
+ * @since 30 Aug 2015
  */
 public class JQImageMapOptions extends JavaScriptPart
 {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public JQImageMapOptions()
-    {
+	public JQImageMapOptions()
+	{
 
-    }
+	}
 
-    @Override
-    public JavascriptPartType getJavascriptType()
-    {
-        return JavascriptPartType.Javascript;
-    }
+	@Override
+	public JavascriptPartType getJavascriptType()
+	{
+		return JavascriptPartType.Javascript;
+	}
 }

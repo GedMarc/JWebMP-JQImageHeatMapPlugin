@@ -21,8 +21,8 @@ package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
  */
 public enum ImageMapAreaShapes
 {
-    Default,
-    Rect,
-    Circle,
-    Poly;
+	Default,
+	Rect,
+	Circle,
+	Poly;
 }

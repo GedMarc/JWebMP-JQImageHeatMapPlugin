@@ -19,32 +19,30 @@ package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 import za.co.mmagon.jwebswing.plugins.PluginInformation;
 
 /**
- *
  * @author GedMarc
  * @since 27 Feb 2017
- *
  */
 @PluginInformation(pluginName = "JQuery Interactive Image Heat Map",
-                   pluginUniqueName = "jquery-interactive-image-heat-map",
-                   pluginDescription = "An image map with selectable colour coded areas that can be determined from a series of values.",
-                   pluginVersion = "1.0.0",
-                   pluginDependancyUniqueIDs = "jquery",
-                   pluginCategories = "canvas, maphilight, jquery, map, area, map, polygons, heatmap, interactive",
-                   pluginSubtitle = "All-In-One Image Map with interactive features, able to heat mapped",
-                   pluginGitUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin",
-                   pluginSourceUrl = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/",
-                   pluginWikiUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin/wiki",
-                   pluginOriginalHomepage = "http://davidlynch.org/blog/2008/03/maphilight-image-map-mouseover-highlighting/",
-                   pluginDownloadUrl = "https://sourceforge.net/projects/jwebswing/files/plugins/JQImageHeatMapPlugin.jar/download",
-                   pluginIconUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
-                   pluginIconImageUrl = "bower_components/jquery-image-heatmap/image_map_logo.png",
-                   pluginLastUpdatedDate = "2017/03/04"
+		pluginUniqueName = "jquery-interactive-image-heat-map",
+		pluginDescription = "An image map with selectable colour coded areas that can be determined from a series of values.",
+		pluginVersion = "1.0.0",
+		pluginDependancyUniqueIDs = "jquery",
+		pluginCategories = "canvas, maphilight, jquery, map, area, map, polygons, heatmap, interactive",
+		pluginSubtitle = "All-In-One Image Map with interactive features, able to heat mapped",
+		pluginGitUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin",
+		pluginSourceUrl = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/",
+		pluginWikiUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin/wiki",
+		pluginOriginalHomepage = "http://davidlynch.org/blog/2008/03/maphilight-image-map-mouseover-highlighting/",
+		pluginDownloadUrl = "https://sourceforge.net/projects/jwebswing/files/plugins/JQImageHeatMapPlugin.jar/download",
+		pluginIconUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
+		pluginIconImageUrl = "bower_components/jquery-image-heatmap/image_map_logo.png",
+		pluginLastUpdatedDate = "2017/03/04"
 )
 public class JQImageMapPageConfigurator
 {
 
-    public JQImageMapPageConfigurator()
-    {
+	public JQImageMapPageConfigurator()
+	{
 
-    }
+	}
 }
