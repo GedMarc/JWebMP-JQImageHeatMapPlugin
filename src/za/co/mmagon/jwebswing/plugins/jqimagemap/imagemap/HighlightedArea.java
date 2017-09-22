@@ -218,16 +218,6 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	}
 
 	/**
-	 * Sets the value assigned to this area
-	 *
-	 * @param value
-	 */
-	public void setValue(String value)
-	{
-		this.prettyValue = value;
-	}
-
-	/**
 	 * Sets the value associated with this area
 	 *
 	 * @param value
@@ -235,6 +225,16 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	public void setValue(double value)
 	{
 		this.value = value;
+	}
+	
+	/**
+	 * Sets the value assigned to this area
+	 *
+	 * @param value
+	 */
+	public void setValue(String value)
+	{
+		this.prettyValue = value;
 	}
 
 	/**

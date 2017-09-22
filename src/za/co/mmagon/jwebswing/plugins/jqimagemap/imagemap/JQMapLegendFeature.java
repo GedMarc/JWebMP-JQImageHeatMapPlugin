@@ -54,7 +54,13 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 
 		getGradientsFeature().setComponent(getLayoutDiv());
 	}
-
+	
+	@Override
+	protected void assignFunctionsToComponent()
+	{
+	
+	}
+	
 	public JQGradientsLinearFeature getGradientsFeature()
 	{
 		if (gradientsFeature == null)

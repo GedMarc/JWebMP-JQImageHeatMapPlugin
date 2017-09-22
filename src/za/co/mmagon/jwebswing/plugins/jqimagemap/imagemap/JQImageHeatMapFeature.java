@@ -99,7 +99,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 		this.maximumValue = getMaxNumber(allValues);
 		return minimumValue;
 	}
-
+	
 	/**
 	 * Sets the minimum value
 	 *
@@ -108,6 +108,12 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	public void setMinimumValue(double minimumValue)
 	{
 		this.minimumValue = minimumValue;
+	}
+	
+	@Override
+	protected void assignFunctionsToComponent()
+	{
+	
 	}
 
 	/**

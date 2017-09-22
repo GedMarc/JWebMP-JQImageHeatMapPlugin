@@ -122,7 +122,7 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 			{
 				propertySB += "\"" + object + "\"";
 			}
-	        /*
+			/*
              * switch (interactiveFeatureProperties.getClassType().getSimpleName())
              * {
              * case "Double":
