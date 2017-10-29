@@ -19,6 +19,7 @@ package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 import za.co.mmagon.jwebswing.Feature;
 import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
+import za.co.mmagon.jwebswing.utilities.StaticStrings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +29,13 @@ import java.util.Map;
  */
 public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapInteractiveFeature> implements ImageMapFeatures
 {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JQImageMap map;
 	private boolean defaultProperties;
-	private HashMap<InteractiveFeatureProperties, Object> appliedProperties = new HashMap();
-	
+	private Map<InteractiveFeatureProperties, Object> appliedProperties = new HashMap();
+
 	/**
 	 * Constructs a new Interactive feature for a map, or its area
 	 *
@@ -46,29 +47,28 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 		this.map = map;
 		getJavascriptReferences().add(new JQHilightReference());
 	}
-	
-	public HashMap<InteractiveFeatureProperties, Object> getAppliedProperties()
+
+	public Map<InteractiveFeatureProperties, Object> getAppliedProperties()
 	{
 		return appliedProperties;
 	}
-	
-	public void setAppliedProperties(HashMap<InteractiveFeatureProperties, Object> appliedProperties)
+
+	public void setAppliedProperties(Map<InteractiveFeatureProperties, Object> appliedProperties)
 	{
 		this.appliedProperties = appliedProperties;
 	}
-	
+
 	@Override
 	public void assignFunctionsToComponent()
 	{
 		if (this.map != null)
 		{
-			//arr.add("$(function() {$('#" + map.getImage().getID() + "').mapPrep()});;");
 			addQuery("$(function() {$('#" + map.getImage().getID() + "').maphilight({" + getProperties(false) + "});"
 					         + "});");
 		}
-		
+
 	}
-	
+
 	/**
 	 * Sets whether this is a default properties render inside the constructor
 	 *
@@ -78,21 +78,12 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 	{
 		return defaultProperties;
 	}
-	
-	/**
-	 * Sets if this is to be rendered as the default image map properties
-	 *
-	 * @param defaultProperties Whether or not this is the default properties
-	 */
-	public void setDefaultProperties(boolean defaultProperties)
-	{
-		this.defaultProperties = defaultProperties;
-	}
-	
+
 	/**
 	 * Returns all the map highlight properties associated with this interactive feature
 	 *
-	 * @param inline Set to true for attribute format
+	 * @param inline
+	 * 		Set to true for attribute format
 	 *
 	 * @return The required property line
 	 */
@@ -105,43 +96,22 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 			InteractiveFeatureProperties interactiveFeatureProperties = entry.getKey();
 			Object object = entry.getValue();
 			current++;
-			
+
 			if (object.toString().equalsIgnoreCase(interactiveFeatureProperties.getDefaultValue().toString()))
 			{
 				continue;
 			}
-			//System.out.println("in [" + interactiveFeatureProperties.getClassType().getSimpleName() + "]");
-			
-			propertySB += (inline ? "\"" : "") + interactiveFeatureProperties.name() + (inline ? "\"" : "") + ":";
+			propertySB += (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + interactiveFeatureProperties.name() + (inline ? StaticStrings.STRING_DOUBLE_QUOTES_SPACE : "") + ":";
 			String bleh = interactiveFeatureProperties.getClassType().getSimpleName();
 			if (bleh.equals("Double") || bleh.equals("Boolean"))
 			{
-				propertySB += (inline ? "\"" : "") + object + (inline ? "\"" : "");
+				propertySB += (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + object + (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "");
 			}
 			else
 			{
-				propertySB += "\"" + object + "\"";
+				propertySB += StaticStrings.STRING_DOUBLE_QUOTES + object + StaticStrings.STRING_DOUBLE_QUOTES;
 			}
-			/*
-             * switch (interactiveFeatureProperties.getClassType().getSimpleName())
-             * {
-             * case "Double":
-             * case "Boolean":
-             * {
-             * propertySB += (inline ? "\"" : "") + object + (inline ? "\"" : "");
-             * break;
-             * }
-             * case "String":
-             * {
-             * propertySB += "\""+ object + "\"";
-             * break;
-             * }
-             * default:
-             * {
-             *
-             * }
-             * }
-             */
+
 			if (current != appliedProperties.size())
 			{
 				propertySB += ",";
@@ -149,21 +119,34 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 		}
 		return propertySB;
 	}
-	
+
+	/**
+	 * Sets if this is to be rendered as the default image map properties
+	 *
+	 * @param defaultProperties
+	 * 		Whether or not this is the default properties
+	 */
+	public void setDefaultProperties(boolean defaultProperties)
+	{
+		this.defaultProperties = defaultProperties;
+	}
+
 	public String getProperty(InteractiveFeatureProperties property)
 	{
 		return appliedProperties.get(property).toString();
 	}
-	
+
 	/**
 	 * Adds a property to this part of the image map
 	 *
-	 * @param property The property to add
-	 * @param value    The value to assign
+	 * @param property
+	 * 		The property to add
+	 * @param value
+	 * 		The value to assign
 	 */
 	public void addProperty(InteractiveFeatureProperties property, String value)
 	{
 		appliedProperties.put(property, value);
 	}
-	
+
 }
