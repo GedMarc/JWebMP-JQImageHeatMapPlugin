@@ -29,14 +29,20 @@ import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapChildren;
 import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
 import za.co.mmagon.jwebswing.base.html.interfaces.events.GlobalEvents;
 import za.co.mmagon.jwebswing.base.servlets.enumarations.ComponentTypes;
+import za.co.mmagon.jwebswing.generics.Direction;
 import za.co.mmagon.jwebswing.htmlbuilder.css.displays.DisplayCSS;
 import za.co.mmagon.jwebswing.htmlbuilder.css.displays.Positions;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
 import za.co.mmagon.jwebswing.plugins.ComponentInformation;
 import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
+import za.co.mmagon.jwebswing.utilities.StaticStrings;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import static za.co.mmagon.jwebswing.utilities.StaticStrings.STRING_COMMNA;
 
 /**
  * The image map component
@@ -55,12 +61,12 @@ public class JQImageMap<J extends JQImageMap>
 		extends Component<ImageMapChildren, ImageMapAttributes, ImageMapFeatures, GlobalEvents, JQImageMap<J>>
 		implements BodyChildren, IJQImageMap
 {
-	
+
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The default interactive feature
 	 */
-	private final JQImageHeatMapFeature heatMap = new JQImageHeatMapFeature(this, 1, 1000000);
+	private final JQImageHeatMapFeature heatMapFeature = new JQImageHeatMapFeature(this, 1, 1000000);
 	/**
 	 * The labels div
 	 */
@@ -109,7 +115,7 @@ public class JQImageMap<J extends JQImageMap>
 	 * The feature that will display the gradient legend
 	 */
 	private JQMapLegendFeature legendFeature = new JQMapLegendFeature(this, gradientFeature);
-	
+
 	/**
 	 * The map URL
 	 */
@@ -130,11 +136,11 @@ public class JQImageMap<J extends JQImageMap>
 	 * Sets whether to display a legend or not
 	 */
 	private boolean legend;
-	
+
 	private boolean valueDisplayed;
-	
+
 	private boolean ratioConfigured = false;
-	
+
 	/**
 	 * Constructs a new Image Map
 	 *
@@ -145,7 +151,7 @@ public class JQImageMap<J extends JQImageMap>
 		this(mapImageUrl, false, false, false);
 		this.labelHeadDiv = new Div();
 	}
-	
+
 	/**
 	 * Constructs an ImageMap from the given parameters with the testing sizes
 	 *
@@ -159,16 +165,20 @@ public class JQImageMap<J extends JQImageMap>
 		this(mapImageUrl, heatmap, interactive, labeled, 0, 0, 0, 0);
 		this.labelHeadDiv = new Div();
 	}
-	
+
 	/**
 	 * @param mapImageUrl
 	 * @param heatmap
 	 * @param interactive
 	 * @param labeled
-	 * @param imageXSize   The original Image size
-	 * @param imageYSize   The original Image size
-	 * @param displayXSize The new image x size
-	 * @param displayYSize the new image y size
+	 * @param imageXSize
+	 * 		The original Image size
+	 * @param imageYSize
+	 * 		The original Image size
+	 * @param displayXSize
+	 * 		The new image x size
+	 * @param displayYSize
+	 * 		the new image y size
 	 */
 	public JQImageMap(String mapImageUrl, boolean heatmap, boolean interactive, boolean labeled, int imageXSize, int imageYSize, int displayXSize, int displayYSize)
 	{
@@ -182,23 +192,26 @@ public class JQImageMap<J extends JQImageMap>
 		this.heatmap = heatmap;
 		this.interactive = interactive;
 		this.labeled = labeled;
-		
+
 		this.map = new Map();
 		this.image = new Image(this.mapImageUrl);
+
 		defaultProperties.setDefaultProperties(true);
-		image.addAttribute(ImageAttributes.UseMap, "#" + this.map.getID());
+		image.addAttribute(ImageAttributes.UseMap, StaticStrings.STRING_HASH + this.map.getID());
 		add(image);
 		add(map);
 	}
-	
+
 	/**
 	 * Adds a specified area to the image map
 	 *
-	 * @param areaName           The name of the area
-	 * @param polygonCoordinates The co-ordinates for the area
+	 * @param areaName
+	 * 		The name of the area
+	 * @param polygonCoordinates
+	 * 		The co-ordinates for the area
 	 *
 	 * @return True or false if added public Area addAreaToMap(String areaName, String polygonCoordinates) { Area a = new Area(ImageMapAreaShapes.Poly, polygonCoordinates);
-	 * a.addAttribute(GlobalAttributes.Name, areaName); this.map.add(a); return a; }
+	 * 		a.addAttribute(GlobalAttributes.Name, areaName); this.map.add(a); return a; }
 	 */
 	@Override
 	public Area addAreaToMap(String areaName, String polygonCoordinates)
@@ -208,11 +221,12 @@ public class JQImageMap<J extends JQImageMap>
 		this.map.add(a);
 		return a;
 	}
-	
+
 	/**
 	 * Adds a specified area to the image map
 	 *
-	 * @param area The area to add
+	 * @param area
+	 * 		The area to add
 	 *
 	 * @return Always True
 	 */
@@ -222,7 +236,7 @@ public class JQImageMap<J extends JQImageMap>
 		this.map.add(area);
 		return true;
 	}
-	
+
 	/**
 	 * Adds an area to the component
 	 */
@@ -232,20 +246,20 @@ public class JQImageMap<J extends JQImageMap>
 		addAreaToMap(area);
 		return area;
 	}
-	
+
 	/**
-	 * TODO
+	 * Resizes accordingly
 	 */
-	private void renderResize()
+	public void renderResize()
 	{
 		if (displayXSize != 0)
 		{
 			image.addAttribute(ImageAttributes.Width, displayXSize + "px");
 			image.addAttribute(ImageAttributes.Height, displayYSize + "px");
-			
+
 			int ratioXDifference = (int) (new Double(displayXSize) / new Double(imageXSize));
 			int ratioYDifference = (int) (new Double(displayYSize) / new Double(imageYSize));
-			
+
 			int[] xArray;
 			int[] yArray;
 			if (!(ratioXDifference == 1 && ratioYDifference == 1) && !ratioConfigured)
@@ -262,26 +276,26 @@ public class JQImageMap<J extends JQImageMap>
 					for (int i = 0; i < allPoints.length; i++)
 					{
 						int[] is = allPoints[i];
-						xArray[i] = (int) (is[0] * ratioXDifference);
+						xArray[i] = (is[0] * ratioXDifference);
 						xTotal += xArray[i];
-						yArray[i] = (int) (is[1] * ratioYDifference);
+						yArray[i] = (is[1] * ratioYDifference);
 						yTotal += yArray[i];
 					}
-					
-					String coords = "";
+
+					StringBuilder coords = new StringBuilder("");
 					for (int i = 0; i < xArray.length; i++)
 					{
 						int j = xArray[i];
 						int k = yArray[i];
-						coords += j + "," + k + ",";
+						coords.append(j + STRING_COMMNA + k + STRING_COMMNA);
 					}
-					coords = coords.substring(0, (coords.length() - 1));
-					area.setCoordinates(coords);
+					coords = coords.deleteCharAt(coords.length() - 1);
+					area.setCoordinates(coords.toString());
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns the gradient feature or a new one
 	 *
@@ -293,13 +307,79 @@ public class JQImageMap<J extends JQImageMap>
 		if (gradientFeature == null)
 		{
 			gradientFeature = new JQGradientsLinearFeature(this);
-			gradientFeature.getOptions().setDirection("vertical");
-			gradientFeature.getOptions().setToColour(getHeatMap().getColourMax());
-			gradientFeature.getOptions().setFromColour(getHeatMap().getColourMin());
+			gradientFeature.getOptions().setDirection(Direction.Vertical);
+			gradientFeature.getOptions().setToColour(getHeatMapFeature().getColourMax());
+			gradientFeature.getOptions().setFromColour(getHeatMapFeature().getColourMin());
 		}
 		return gradientFeature;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	private void processHeatmap()
+	{
+		addFeature(defaultProperties);
+		addFeature(heatMapFeature);
+		if (isLegend())
+		{
+
+			getGradientFeature().getOptions().setFromColour(this.heatMapFeature.getColourMin());
+			getGradientFeature().getOptions().setToColour(this.heatMapFeature.getColourMax());
+			getGradientFeature().getOptions().setDirection(Direction.Vertical);
+			addFeature(legendFeature);
+			addFeature(gradientFeature);
+			if (!getChildren().contains(legendFeature.getLayoutDiv()))
+			{
+				getChildren().add(getChildren().size(), legendFeature.getLayoutDiv());
+			}
+		}
+
+		double totalValue = 0.0;
+		ArrayList<Double> values = new ArrayList();
+		for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
+		{
+			HighlightedArea area = (HighlightedArea) it.next();
+			totalValue += area.getValue();
+			values.add(area.getValue());
+		}
+		heatMapFeature.setValues(values);
+		for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
+		{
+			HighlightedArea area = (HighlightedArea) it.next();
+			area.getInteractiveProperties().addProperty(InteractiveFeatureProperties.overlayColorPermanent, heatMapFeature.getColourForValue(area.getValue()));
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void processLabels()
+	{
+		ArrayList<ComponentHierarchyBase> alreadyAdded = new ArrayList();
+		for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
+		{
+			HighlightedArea area = (HighlightedArea) it.next();
+			if (alreadyAdded.contains(area))
+			{
+				continue;
+			}
+			alreadyAdded.add(area);
+			Span areaLableDiv = new Span();
+			areaLableDiv.setText("");
+			areaLableDiv.addAttribute(GlobalAttributes.Style, "color:#000000 !important");
+			if (isLabeled())
+			{
+				areaLableDiv.setText(area.getAttribute(GlobalAttributes.Name));
+			}
+			if (isValueDisplayed())
+			{
+				areaLableDiv.setText(areaLableDiv.getText(0) + "<br>" + area.getPrettyValue());
+			}
+
+
+			areaLableDiv.addAttribute(GlobalAttributes.Style, "position:absolute");
+			areaLableDiv.addFeature(new Binder(areaLableDiv, area));
+			area.add(areaLableDiv);
+		}
+	}
+
 	@Override
 	public void preConfigure()
 	{
@@ -307,125 +387,37 @@ public class JQImageMap<J extends JQImageMap>
 		{
 			addFeature(defaultProperties);
 		}
-		
+
 		if (isHeatmap())
 		{
-			addFeature(defaultProperties);
-			addFeature(heatMap);
-			if (isLegend())
-			{
-				
-				getGradientFeature().getOptions().setFromColour(this.heatMap.getColourMin());
-				getGradientFeature().getOptions().setToColour(this.heatMap.getColourMax());
-				getGradientFeature().getOptions().setDirection("vertical");
-				addFeature(legendFeature);
-				addFeature(gradientFeature);
-				if (!getChildren().contains(legendFeature.getLayoutDiv()))
-				{
-					getChildren().add(getChildren().size(), legendFeature.getLayoutDiv());
-				}
-			}
-			
-			double totalValue = 0.0;
-			ArrayList<Double> values = new ArrayList();
-			for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
-			{
-				HighlightedArea area = (HighlightedArea) it.next();
-				totalValue += area.getValue();
-				values.add(area.getValue());
-			}
-			heatMap.setValues(values);
-			for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
-			{
-				HighlightedArea area = (HighlightedArea) it.next();
-				area.getInteractiveProperties().addProperty(InteractiveFeatureProperties.overlayColorPermanent, heatMap.getColourForValue(area.getValue()));
-			}
+			processHeatmap();
 		}
-		
-		if (isLabeled() || isValueDisplayed())
+
+		if ((isLabeled() || isValueDisplayed() && (!(getChildren().contains(labelHeadDiv)))))
 		{
-			if (!(getChildren().contains(labelHeadDiv)))
-			{
-				ArrayList<ComponentHierarchyBase> alreadyAdded = new ArrayList();
-				for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
-				{
-					HighlightedArea area = (HighlightedArea) it.next();
-					if (alreadyAdded.contains(area))
-					{
-						continue;
-					}
-					alreadyAdded.add(area);
-					Span areaLableDiv = new Span();
-					//areaLableDiv.getCss().getDisplay().setPosition(Positions.Absolute);
-					areaLableDiv.setText("");
-					areaLableDiv.addAttribute(GlobalAttributes.Style, "color:#000000 !important");
-					if (isLabeled())
-					{
-						areaLableDiv.setText(area.getAttribute(GlobalAttributes.Name));
-					}
-					if (isValueDisplayed())
-					{
-						areaLableDiv.setText(areaLableDiv.getText(0) + "<br>" + area.getPrettyValue());
-					}
-					
-					class Binder extends Feature<JavaScriptPart, Binder>
-					{
-						
-						private static final long serialVersionUID = 1L;
-						
-						Span label;
-						Area area;
-						
-						public Binder(Span label, Area area)
-						{
-							super("Image Map Label Binder");
-							this.label = label;
-							this.area = area;
-						}
-						
-						@Override
-						public void assignFunctionsToComponent()
-						{
-							
-							addQuery("$('#" + label.getID() + "').bind('click', function(event) {$('#" + area.getID() + "').click();});");
-							addQuery("$('#" + label.getID() + "').bind('hover', function(event) {$('#" + area.getID() + "').hover();});");
-							addQuery("$('#" + label.getID() + "').bind('mouseover', function(event) {$('#" + area.getID() + "').mouseover();});");
-							addQuery("$('#" + label.getID() + "').bind('mouseout', function(event) {$('#" + area.getID() + "').mouseout();});");
-						}
-					}
-					
-					areaLableDiv.addAttribute(GlobalAttributes.Style, "position:absolute");
-					areaLableDiv.addFeature(new Binder(areaLableDiv, area));
-					//int[] Center = PolygonUtils.getCenterPointOfPolygon(area.getCoordinates());
-					//areaLableDiv.addAttribute(GlobalAttributes.Style, "position:absolute;top:" + Center[0] + ";Left:"+ Center[1]);
-					//areaLableDiv.addFeature(new JQUIPositionFeature(areaLableDiv, new Position(PositionLocationHorizontal.Center, PositionLocationVertical.center, PositionLocationHorizontal.Center, PositionLocationVertical.center, area)));
-					area.add(areaLableDiv);
-					//add(areaLableDiv);
-				}
-				//add(labelHeadDiv);
-			}
+			processLabels();
 		}
-		
+
 		for (Iterator<ComponentHierarchyBase> it = this.map.getChildren().iterator(); it.hasNext(); )
 		{
 			HighlightedArea area = (HighlightedArea) it.next();
 			area.addAttribute(AreaAttributes.Data_MapHilight, "{" + area.getInteractiveProperties().getProperties(true) + "}");
 		}
-		//setPosition(Positions.Absolute);
 		super.preConfigure();
 	}
-	
+
 	/**
 	 * Returns the default properties
 	 *
 	 * @return
 	 */
 	@Override
+	@Nullable
 	public JQMapInteractiveFeature getDefaultProperties()
 	{
 		return defaultProperties;
 	}
-	
+
 	/**
 	 * Sets the default properties
 	 *
@@ -436,18 +428,19 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.defaultProperties = defaultProperties;
 	}
-	
+
 	/**
 	 * Return the current map object
 	 *
 	 * @return
 	 */
 	@Override
+	@NotNull
 	public Map getMap()
 	{
 		return map;
 	}
-	
+
 	/**
 	 * Sets the current map object
 	 *
@@ -458,7 +451,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.map = map;
 	}
-	
+
 	/**
 	 * Returns the associated image
 	 *
@@ -469,7 +462,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return image;
 	}
-	
+
 	/**
 	 * Sets the associated image
 	 *
@@ -480,7 +473,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.image = image;
 	}
-	
+
 	/**
 	 * Returns the Map Image URL
 	 *
@@ -491,7 +484,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return mapImageUrl;
 	}
-	
+
 	/**
 	 * Sets the map image url
 	 *
@@ -502,7 +495,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.mapImageUrl = mapImageUrl;
 	}
-	
+
 	/**
 	 * If this map is a heat map
 	 *
@@ -513,7 +506,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return heatmap;
 	}
-	
+
 	/**
 	 * If this map is a heatmap
 	 *
@@ -524,7 +517,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.heatmap = heatmap;
 	}
-	
+
 	/**
 	 * If this map is interactive
 	 *
@@ -535,7 +528,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return interactive;
 	}
-	
+
 	/**
 	 * If this map is interactive
 	 *
@@ -554,7 +547,7 @@ public class JQImageMap<J extends JQImageMap>
 			removeFeature(defaultProperties);
 		}
 	}
-	
+
 	/**
 	 * If this map has a legend
 	 *
@@ -565,7 +558,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return legend;
 	}
-	
+
 	/**
 	 * If this map has a legend
 	 *
@@ -576,7 +569,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.legend = legend;
 	}
-	
+
 	/**
 	 * Image x size
 	 *
@@ -587,7 +580,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return imageXSize;
 	}
-	
+
 	/**
 	 * Image x size
 	 *
@@ -598,7 +591,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.imageXSize = imageXSize;
 	}
-	
+
 	/**
 	 * Image Y size
 	 *
@@ -609,7 +602,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return imageYSize;
 	}
-	
+
 	/**
 	 * Set image y size
 	 *
@@ -620,7 +613,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.imageYSize = imageYSize;
 	}
-	
+
 	/**
 	 * Is value displayed
 	 *
@@ -631,7 +624,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return valueDisplayed;
 	}
-	
+
 	/**
 	 * Is value displayed
 	 *
@@ -642,7 +635,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.valueDisplayed = valueDisplayed;
 	}
-	
+
 	/**
 	 * getDisplay X Size
 	 *
@@ -653,7 +646,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return displayXSize;
 	}
-	
+
 	/**
 	 * getDisplay X size
 	 *
@@ -664,7 +657,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.displayXSize = displayXSize;
 	}
-	
+
 	/**
 	 * getDisplay Y size
 	 *
@@ -675,7 +668,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return displayYSize;
 	}
-	
+
 	/**
 	 * getDisplay Y size
 	 *
@@ -686,7 +679,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.displayYSize = displayYSize;
 	}
-	
+
 	/**
 	 * Set is labeled
 	 *
@@ -697,7 +690,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return labeled;
 	}
-	
+
 	/**
 	 * Set is labeled
 	 *
@@ -708,18 +701,18 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.labeled = labeled;
 	}
-	
+
 	/**
 	 * Return the heat map options
 	 *
 	 * @return
 	 */
 	@Override
-	public JQImageHeatMapFeature getHeatMap()
+	public JQImageHeatMapFeature getHeatMapFeature()
 	{
-		return heatMap;
+		return heatMapFeature;
 	}
-	
+
 	/**
 	 * Gets the actual labels
 	 *
@@ -730,7 +723,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return labelsDiv;
 	}
-	
+
 	/**
 	 * Sets the label div
 	 *
@@ -741,7 +734,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.labelsDiv = labelsDiv;
 	}
-	
+
 	/**
 	 * Gets the legend div
 	 *
@@ -752,7 +745,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return legendDiv;
 	}
-	
+
 	/**
 	 * Sets the legend div
 	 *
@@ -763,7 +756,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.legendDiv = legendDiv;
 	}
-	
+
 	/**
 	 * Gets the label head div
 	 *
@@ -774,7 +767,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return labelHeadDiv;
 	}
-	
+
 	/**
 	 * Sets the label div
 	 *
@@ -785,7 +778,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.labelHeadDiv = labelHeadDiv;
 	}
-	
+
 	/**
 	 * Gets the legend feature
 	 *
@@ -796,7 +789,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return legendFeature;
 	}
-	
+
 	/**
 	 * Sets the legend div
 	 *
@@ -807,7 +800,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		this.legendFeature = legendFeature;
 	}
-	
+
 	/**
 	 * If the ratio is currently configured for the screen
 	 *
@@ -818,7 +811,7 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return ratioConfigured;
 	}
-	
+
 	/**
 	 * Neater version
 	 *
@@ -828,5 +821,188 @@ public class JQImageMap<J extends JQImageMap>
 	{
 		return this;
 	}
-	
+
+	class Binder extends Feature<JavaScriptPart, Binder>
+	{
+
+		private static final long serialVersionUID = 1L;
+
+		Span label;
+		Area area;
+
+		public Binder(Span label, Area area)
+		{
+			super("Image Map Label Binder");
+			this.label = label;
+			this.area = area;
+		}
+
+		@Override
+		public void assignFunctionsToComponent()
+		{
+
+			addQuery("$('#" + label.getID() + "').bind('click', function(event) {$('#" + area.getID() + "').click();});");
+			addQuery("$('#" + label.getID() + "').bind('hover', function(event) {$('#" + area.getID() + "').hover();});");
+			addQuery("$('#" + label.getID() + "').bind('mouseover', function(event) {$('#" + area.getID() + "').mouseover();});");
+			addQuery("$('#" + label.getID() + "').bind('mouseout', function(event) {$('#" + area.getID() + "').mouseout();});");
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o)
+			{
+				return true;
+			}
+			if (o == null || getClass() != o.getClass())
+			{
+				return false;
+			}
+			if (!super.equals(o))
+			{
+				return false;
+			}
+
+			Binder binder = (Binder) o;
+
+			if (!label.equals(binder.label))
+			{
+				return false;
+			}
+			return area.equals(binder.area);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			int result = super.hashCode();
+			result = 31 * result + label.hashCode();
+			result = 31 * result + area.hashCode();
+			return result;
+		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		if (!super.equals(o))
+		{
+			return false;
+		}
+
+		JQImageMap<?> that = (JQImageMap<?>) o;
+
+		if (getImageXSize() != that.getImageXSize())
+		{
+			return false;
+		}
+		if (getImageYSize() != that.getImageYSize())
+		{
+			return false;
+		}
+		if (getDisplayXSize() != that.getDisplayXSize())
+		{
+			return false;
+		}
+		if (getDisplayYSize() != that.getDisplayYSize())
+		{
+			return false;
+		}
+		if (isHeatmap() != that.isHeatmap())
+		{
+			return false;
+		}
+		if (isInteractive() != that.isInteractive())
+		{
+			return false;
+		}
+		if (isLabeled() != that.isLabeled())
+		{
+			return false;
+		}
+		if (isLegend() != that.isLegend())
+		{
+			return false;
+		}
+		if (isValueDisplayed() != that.isValueDisplayed())
+		{
+			return false;
+		}
+		if (isRatioConfigured() != that.isRatioConfigured())
+		{
+			return false;
+		}
+		if (!getHeatMapFeature().equals(that.getHeatMapFeature()))
+		{
+			return false;
+		}
+		if (getLabelsDiv() != null ? !getLabelsDiv().equals(that.getLabelsDiv()) : that.getLabelsDiv() != null)
+		{
+			return false;
+		}
+		if (getLegendDiv() != null ? !getLegendDiv().equals(that.getLegendDiv()) : that.getLegendDiv() != null)
+		{
+			return false;
+		}
+		if (!getMap().equals(that.getMap()))
+		{
+			return false;
+		}
+		if (!getImage().equals(that.getImage()))
+		{
+			return false;
+		}
+		if (getLabelHeadDiv() != null ? !getLabelHeadDiv().equals(that.getLabelHeadDiv()) : that.getLabelHeadDiv() != null)
+		{
+			return false;
+		}
+		if (getDefaultProperties() != null ? !getDefaultProperties().equals(that.getDefaultProperties()) : that.getDefaultProperties() != null)
+		{
+			return false;
+		}
+		if (getGradientFeature() != null ? !getGradientFeature().equals(that.getGradientFeature()) : that.getGradientFeature() != null)
+		{
+			return false;
+		}
+		if (getLegendFeature() != null ? !getLegendFeature().equals(that.getLegendFeature()) : that.getLegendFeature() != null)
+		{
+			return false;
+		}
+		return getMapImageUrl() != null ? getMapImageUrl().equals(that.getMapImageUrl()) : that.getMapImageUrl() == null;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + getHeatMapFeature().hashCode();
+		result = 31 * result + (getLabelsDiv() != null ? getLabelsDiv().hashCode() : 0);
+		result = 31 * result + (getLegendDiv() != null ? getLegendDiv().hashCode() : 0);
+		result = 31 * result + getMap().hashCode();
+		result = 31 * result + getImage().hashCode();
+		result = 31 * result + getImageXSize();
+		result = 31 * result + getImageYSize();
+		result = 31 * result + getDisplayXSize();
+		result = 31 * result + getDisplayYSize();
+		result = 31 * result + (getLabelHeadDiv() != null ? getLabelHeadDiv().hashCode() : 0);
+		result = 31 * result + (getDefaultProperties() != null ? getDefaultProperties().hashCode() : 0);
+		result = 31 * result + (getGradientFeature() != null ? getGradientFeature().hashCode() : 0);
+		result = 31 * result + (getLegendFeature() != null ? getLegendFeature().hashCode() : 0);
+		result = 31 * result + (getMapImageUrl() != null ? getMapImageUrl().hashCode() : 0);
+		result = 31 * result + (isHeatmap() ? 1 : 0);
+		result = 31 * result + (isInteractive() ? 1 : 0);
+		result = 31 * result + (isLabeled() ? 1 : 0);
+		result = 31 * result + (isLegend() ? 1 : 0);
+		result = 31 * result + (isValueDisplayed() ? 1 : 0);
+		result = 31 * result + (isRatioConfigured() ? 1 : 0);
+		return result;
+	}
 }

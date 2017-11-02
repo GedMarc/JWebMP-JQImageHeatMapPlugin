@@ -21,7 +21,8 @@ import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
 import za.co.mmagon.jwebswing.utilities.StaticStrings;
 
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -34,7 +35,7 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 
 	private JQImageMap map;
 	private boolean defaultProperties;
-	private Map<InteractiveFeatureProperties, Object> appliedProperties = new HashMap();
+	private Map<InteractiveFeatureProperties, Serializable> appliedProperties = new EnumMap<>(InteractiveFeatureProperties.class);
 
 	/**
 	 * Constructs a new Interactive feature for a map, or its area
@@ -48,12 +49,12 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 		getJavascriptReferences().add(new JQHilightReference());
 	}
 
-	public Map<InteractiveFeatureProperties, Object> getAppliedProperties()
+	public Map<InteractiveFeatureProperties, Serializable> getAppliedProperties()
 	{
 		return appliedProperties;
 	}
 
-	public void setAppliedProperties(Map<InteractiveFeatureProperties, Object> appliedProperties)
+	public void setAppliedProperties(Map<InteractiveFeatureProperties, Serializable> appliedProperties)
 	{
 		this.appliedProperties = appliedProperties;
 	}
@@ -89,9 +90,9 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 	 */
 	public String getProperties(boolean inline)
 	{
-		String propertySB = "";
+		StringBuilder propertySB = new StringBuilder();
 		int current = 0;
-		for (Map.Entry<InteractiveFeatureProperties, Object> entry : appliedProperties.entrySet())
+		for (Map.Entry<InteractiveFeatureProperties, Serializable> entry : appliedProperties.entrySet())
 		{
 			InteractiveFeatureProperties interactiveFeatureProperties = entry.getKey();
 			Object object = entry.getValue();
@@ -101,23 +102,23 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 			{
 				continue;
 			}
-			propertySB += (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + interactiveFeatureProperties.name() + (inline ? StaticStrings.STRING_DOUBLE_QUOTES_SPACE : "") + ":";
+			propertySB.append((inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + interactiveFeatureProperties.name() + (inline ? StaticStrings.STRING_DOUBLE_QUOTES_SPACE : "") + ":");
 			String bleh = interactiveFeatureProperties.getClassType().getSimpleName();
-			if (bleh.equals("Double") || bleh.equals("Boolean"))
+			if ("Double".equals(bleh) || "Boolean".equals(bleh))
 			{
-				propertySB += (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + object + (inline ? StaticStrings.STRING_DOUBLE_QUOTES : "");
+				propertySB.append((inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + object + (inline ? StaticStrings.STRING_DOUBLE_QUOTES : ""));
 			}
 			else
 			{
-				propertySB += StaticStrings.STRING_DOUBLE_QUOTES + object + StaticStrings.STRING_DOUBLE_QUOTES;
+				propertySB.append(StaticStrings.STRING_DOUBLE_QUOTES + object + StaticStrings.STRING_DOUBLE_QUOTES);
 			}
 
 			if (current != appliedProperties.size())
 			{
-				propertySB += ",";
+				propertySB.append(StaticStrings.STRING_COMMNA);
 			}
 		}
-		return propertySB;
+		return propertySB.toString();
 	}
 
 	/**
@@ -149,4 +150,42 @@ public class JQMapInteractiveFeature extends Feature<JavaScriptPart, JQMapIntera
 		appliedProperties.put(property, value);
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		if (!super.equals(o))
+		{
+			return false;
+		}
+
+		JQMapInteractiveFeature that = (JQMapInteractiveFeature) o;
+
+		if (isDefaultProperties() != that.isDefaultProperties())
+		{
+			return false;
+		}
+		if (!map.equals(that.map))
+		{
+			return false;
+		}
+		return getAppliedProperties().equals(that.getAppliedProperties());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + map.hashCode();
+		result = 31 * result + (isDefaultProperties() ? 1 : 0);
+		result = 31 * result + getAppliedProperties().hashCode();
+		return result;
+	}
 }

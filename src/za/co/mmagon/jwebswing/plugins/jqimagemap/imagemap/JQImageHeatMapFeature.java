@@ -22,11 +22,12 @@ import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
 import za.co.mmagon.jwebswing.utilities.ColourUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since @version @author MMagon
- * <p>
- * <p>
+ * 		<p>
+ * 		<p>
  */
 public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMapFeature> implements ImageMapFeatures
 {
@@ -36,7 +37,6 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 * The image map
 	 */
 	private final JQImageMap imageMap;
-	//private JQLayoutFeature imageMapFeature;
 	/**
 	 * The minimum value
 	 */
@@ -56,7 +56,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	/**
 	 * Array list of all the values
 	 */
-	private ArrayList<Double> allValues = new ArrayList<>();
+	private List<Double> allValues = new ArrayList<>();
 
 	/**
 	 * Constructs a new image heat map java script portion
@@ -70,6 +70,8 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 		super("JWHeatMapFeature");
 		this.imageMap = imageMap;
 		setComponent(imageMap);
+		setMinimumValue(minimumValue);
+		setMaximumValue(maximumValue);
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 * @param imageMap
 	 * @param allValues
 	 */
-	public JQImageHeatMapFeature(JQImageMap imageMap, ArrayList<Double> allValues)
+	public JQImageHeatMapFeature(JQImageMap imageMap, List<Double> allValues)
 	{
 		super("JWHeatMapFeature");
 		this.imageMap = imageMap;
@@ -99,7 +101,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 		this.maximumValue = getMaxNumber(allValues);
 		return minimumValue;
 	}
-	
+
 	/**
 	 * Sets the minimum value
 	 *
@@ -109,11 +111,11 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	{
 		this.minimumValue = minimumValue;
 	}
-	
+
 	@Override
 	protected void assignFunctionsToComponent()
 	{
-	
+		//No queries needed
 	}
 
 	/**
@@ -143,7 +145,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 *
 	 * @param allValues
 	 */
-	public void setValues(ArrayList<Double> allValues)
+	public void setValues(List<Double> allValues)
 	{
 		this.minimumValue = getMinNumber(allValues);
 		this.maximumValue = getMaxNumber(allValues);
@@ -207,7 +209,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 *
 	 * @return
 	 */
-	private double getMinNumber(ArrayList<Double> provinceValues)
+	private double getMinNumber(List<Double> provinceValues)
 	{
 		Double min = 999999999.0;
 
@@ -226,7 +228,7 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 *
 	 * @return
 	 */
-	private double getMaxNumber(ArrayList<Double> provinceValues)
+	private double getMaxNumber(List<Double> provinceValues)
 	{
 		Double max = 0.0;
 
@@ -267,9 +269,61 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 *
 	 * @return
 	 */
-	public ArrayList<Double> getAllValues()
+	public List<Double> getAllValues()
 	{
 		return allValues;
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		if (!super.equals(o))
+		{
+			return false;
+		}
+
+		JQImageHeatMapFeature that = (JQImageHeatMapFeature) o;
+
+		if (Double.compare(that.getMinimumValue(), getMinimumValue()) != 0)
+		{
+			return false;
+		}
+		if (Double.compare(that.getMaximumValue(), getMaximumValue()) != 0)
+		{
+			return false;
+		}
+		if (getImageMap() != null ? !getImageMap().equals(that.getImageMap()) : that.getImageMap() != null)
+		{
+			return false;
+		}
+		if (!getColourMin().equals(that.getColourMin()))
+		{
+			return false;
+		}
+		return getColourMax().equals(that.getColourMax()) && getAllValues().equals(that.getAllValues());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		long temp;
+		result = 31 * result + (getImageMap() != null ? getImageMap().hashCode() : 0);
+		temp = Double.doubleToLongBits(getMinimumValue());
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(getMaximumValue());
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + getColourMin().hashCode();
+		result = 31 * result + getColourMax().hashCode();
+		result = 31 * result + getAllValues().hashCode();
+		return result;
+	}
 }

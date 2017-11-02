@@ -27,6 +27,8 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static za.co.mmagon.jwebswing.utilities.StaticStrings.STRING_COMMNA;
+
 /**
  * @author GedMarc
  * @since 15 Feb 2017
@@ -37,7 +39,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	private static final Logger LOG = LogFactory.getInstance().getLogger("HighlightedArea");
 	private static final long serialVersionUID = 1L;
 	private ImageMapAreaShapes areaShape;
-	private int[][] coordinatesArray;
+
 	private String coordinates;
 	private String prettyValue = "0.0";
 	private double value = 0.0;
@@ -48,15 +50,17 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	/**
 	 * Construct a new area tag with the given co-ordinates and area shape. A name is required
 	 *
-	 * @param areaShape   The area shape
-	 * @param coordinates The co-ordinates of this area
-	 * @param name        The name of this area
+	 * @param areaShape
+	 * 		The area shape
+	 * @param coordinates
+	 * 		The co-ordinates of this area
+	 * @param name
+	 * 		The name of this area
 	 */
 	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates, String name)
 	{
 		super();
 		this.areaShape = areaShape;
-		this.coordinatesArray = getArrayFromStringCoordinates(coordinates);
 		this.coordinates = coordinates;
 		addAttribute(GlobalAttributes.Name, name);
 		addAttribute(AreaAttributes.Coords, this.coordinates);
@@ -67,8 +71,10 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	/**
 	 * Construct a new area tag with the given co-ordinates and area shape. The name "MapArea" is assigned as a default for image maps
 	 *
-	 * @param areaShape   The area shape
-	 * @param coordinates The co-ordinates of this area
+	 * @param areaShape
+	 * 		The area shape
+	 * @param coordinates
+	 * 		The co-ordinates of this area
 	 */
 	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
 	{
@@ -78,13 +84,14 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	/**
 	 * Splits the co-ordinates into an array
 	 *
-	 * @param coordinates The Co-ordinate string
+	 * @param coordinates
+	 * 		The Co-ordinate string
 	 *
 	 * @return The integer array of all the points
 	 */
 	public static synchronized int[][] getArrayFromStringCoordinates(String coordinates)
 	{
-		StringTokenizer st = new StringTokenizer(coordinates, ",");
+		StringTokenizer st = new StringTokenizer(coordinates, STRING_COMMNA);
 		int coordinateCount = st.countTokens() / 2;
 		int[][] coords = new int[coordinateCount][2];
 		int currentCoord = 0;
@@ -226,7 +233,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	{
 		this.value = value;
 	}
-	
+
 	/**
 	 * Sets the value assigned to this area
 	 *
@@ -275,5 +282,17 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	public void setDecimalFormat(DecimalFormat decimalFormat)
 	{
 		this.decimalFormat = decimalFormat;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		return super.equals(o);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

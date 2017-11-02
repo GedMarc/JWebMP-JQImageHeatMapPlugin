@@ -35,22 +35,22 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 {
 
 	private static final long serialVersionUID = 1L;
+	private static final String LEGEND_DEFAULT_STYLE = "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px";
 
-	private JQGradientsLinearFeature gradientsFeature;// = new JQGradientsLinearFeature();
+	private JQGradientsLinearFeature gradientsFeature;
 	private Div layoutDiv = new Div();
 
 	private Div firstHalf = new Div();
 	private Div secondHalf = new Div();
 
-	public JQMapLegendFeature(JQImageMap imageMap, JQGradientsLinearFeature gradientFeature)
+	public JQMapLegendFeature(JQGradientsLinearFeature gradientFeature)
 	{
 		super("JWMapLegendFeature");
 		this.gradientsFeature = gradientFeature;
 		setComponent(getLayoutDiv());
-		layoutDiv.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-		//layoutDiv.add(secondHalf);
-		firstHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
-		secondHalf.addAttribute(GlobalAttributes.Style, "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px");
+		layoutDiv.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
+		firstHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
+		secondHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
 
 		getGradientsFeature().setComponent(getLayoutDiv());
 	}
@@ -58,7 +58,7 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 	@Override
 	protected void assignFunctionsToComponent()
 	{
-	
+		//No queries needed
 	}
 	
 	public JQGradientsLinearFeature getGradientsFeature()
@@ -85,4 +85,47 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 		this.layoutDiv = layoutDiv;
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		if (!super.equals(o))
+		{
+			return false;
+		}
+
+		JQMapLegendFeature that = (JQMapLegendFeature) o;
+
+		if (!getGradientsFeature().equals(that.getGradientsFeature()))
+		{
+			return false;
+		}
+		if (!getLayoutDiv().equals(that.getLayoutDiv()))
+		{
+			return false;
+		}
+		if (!firstHalf.equals(that.firstHalf))
+		{
+			return false;
+		}
+		return secondHalf.equals(that.secondHalf);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + getGradientsFeature().hashCode();
+		result = 31 * result + getLayoutDiv().hashCode();
+		result = 31 * result + firstHalf.hashCode();
+		result = 31 * result + secondHalf.hashCode();
+		return result;
+	}
 }

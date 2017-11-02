@@ -43,6 +43,6 @@ public class JQImageMapPageConfigurator
 
 	public JQImageMapPageConfigurator()
 	{
-
+		//No configuration needed
 	}
 }

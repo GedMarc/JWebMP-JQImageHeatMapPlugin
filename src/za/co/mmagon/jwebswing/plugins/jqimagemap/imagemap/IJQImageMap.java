@@ -112,7 +112,7 @@ public interface IJQImageMap
 	 *
 	 * @return
 	 */
-	JQImageHeatMapFeature getHeatMap();
+	JQImageHeatMapFeature getHeatMapFeature();
 	
 	/**
 	 * Returns the associated image

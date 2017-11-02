@@ -17,7 +17,6 @@
 package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
 
 import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
-import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavascriptPartType;
 
 /**
  * @author Marc Magon
@@ -31,12 +30,7 @@ public class JQImageMapOptions extends JavaScriptPart
 
 	public JQImageMapOptions()
 	{
-
+		//Nothing needed
 	}
 
-	@Override
-	public JavascriptPartType getJavascriptType()
-	{
-		return JavascriptPartType.Javascript;
-	}
 }
