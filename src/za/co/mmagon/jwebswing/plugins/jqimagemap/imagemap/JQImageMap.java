@@ -114,7 +114,7 @@ public class JQImageMap<J extends JQImageMap>
 	/**
 	 * The feature that will display the gradient legend
 	 */
-	private JQMapLegendFeature legendFeature = new JQMapLegendFeature(this, gradientFeature);
+	private JQMapLegendFeature legendFeature = new JQMapLegendFeature(gradientFeature);
 
 	/**
 	 * The map URL
