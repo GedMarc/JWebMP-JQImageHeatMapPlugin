@@ -180,6 +180,7 @@ public class JQImageMap<J extends JQImageMap>
 	 * @param displayYSize
 	 * 		the new image y size
 	 */
+	@SuppressWarnings("unchecked")
 	public JQImageMap(String mapImageUrl, boolean heatmap, boolean interactive, boolean labeled, int imageXSize, int imageYSize, int displayXSize, int displayYSize)
 	{
 		super("div", ComponentTypes.Div, false);
@@ -214,6 +215,7 @@ public class JQImageMap<J extends JQImageMap>
 	 * 		a.addAttribute(GlobalAttributes.Name, areaName); this.map.add(a); return a; }
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public Area addAreaToMap(String areaName, String polygonCoordinates)
 	{
 		HighlightedArea a = new HighlightedArea(ImageMapAreaShapes.Poly, polygonCoordinates);
@@ -231,6 +233,7 @@ public class JQImageMap<J extends JQImageMap>
 	 * @return Always True
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean addAreaToMap(Area area)
 	{
 		this.map.add(area);
@@ -250,6 +253,7 @@ public class JQImageMap<J extends JQImageMap>
 	/**
 	 * Resizes accordingly
 	 */
+	@SuppressWarnings("unchecked")
 	public void renderResize()
 	{
 		if (displayXSize != 0)
@@ -381,6 +385,7 @@ public class JQImageMap<J extends JQImageMap>
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void preConfigure()
 	{
 		if (isInteractive())
