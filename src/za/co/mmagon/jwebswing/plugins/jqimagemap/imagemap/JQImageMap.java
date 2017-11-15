@@ -329,7 +329,7 @@ public class JQImageMap<J extends JQImageMap>
 			addFeature(gradientFeature);
 			if (!getChildren().contains(legendFeature.getLayoutDiv()))
 			{
-				getChildren().add(getChildren().size(), legendFeature.getLayoutDiv());
+				getChildren().add(legendFeature.getLayoutDiv());
 			}
 		}
 
