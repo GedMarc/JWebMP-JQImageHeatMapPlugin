@@ -987,27 +987,6 @@ public class JQImageMap<J extends JQImageMap>
 	@Override
 	public int hashCode()
 	{
-		int result = super.hashCode();
-		result = 31 * result + getHeatMapFeature().hashCode();
-		result = 31 * result + (getLabelsDiv() != null ? getLabelsDiv().hashCode() : 0);
-		result = 31 * result + (getLegendDiv() != null ? getLegendDiv().hashCode() : 0);
-		result = 31 * result + getMap().hashCode();
-		result = 31 * result + getImage().hashCode();
-		result = 31 * result + getImageXSize();
-		result = 31 * result + getImageYSize();
-		result = 31 * result + getDisplayXSize();
-		result = 31 * result + getDisplayYSize();
-		result = 31 * result + (getLabelHeadDiv() != null ? getLabelHeadDiv().hashCode() : 0);
-		result = 31 * result + (getDefaultProperties() != null ? getDefaultProperties().hashCode() : 0);
-		result = 31 * result + (getGradientFeature() != null ? getGradientFeature().hashCode() : 0);
-		result = 31 * result + (getLegendFeature() != null ? getLegendFeature().hashCode() : 0);
-		result = 31 * result + (getMapImageUrl() != null ? getMapImageUrl().hashCode() : 0);
-		result = 31 * result + (isHeatmap() ? 1 : 0);
-		result = 31 * result + (isInteractive() ? 1 : 0);
-		result = 31 * result + (isLabeled() ? 1 : 0);
-		result = 31 * result + (isLegend() ? 1 : 0);
-		result = 31 * result + (isValueDisplayed() ? 1 : 0);
-		result = 31 * result + (isRatioConfigured() ? 1 : 0);
-		return result;
+		return super.hashCode();
 	}
 }
