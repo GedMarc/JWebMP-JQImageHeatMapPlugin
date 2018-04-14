@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.Component;
-import za.co.mmagon.jwebswing.Feature;
-import za.co.mmagon.jwebswing.base.html.Div;
-import za.co.mmagon.jwebswing.base.html.attributes.GlobalAttributes;
-import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
-import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
-import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
+import com.jwebmp.Component;
+import com.jwebmp.Feature;
+import com.jwebmp.base.html.Div;
+import com.jwebmp.base.html.attributes.GlobalAttributes;
+import com.jwebmp.base.html.interfaces.children.ImageMapFeatures;
+import com.jwebmp.htmlbuilder.javascript.JavaScriptPart;
+import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
 
 /**
  * Adds a legend below a heat map
@@ -31,7 +31,9 @@ import za.co.mmagon.jwebswing.plugins.jqgradientlinear.JQGradientsLinearFeature;
  * @version 1.0
  * @since 2013/11/27 03:06
  */
-public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeature> implements ImageMapFeatures
+public class JQMapLegendFeature
+		extends Feature<JavaScriptPart, JQMapLegendFeature>
+		implements ImageMapFeatures
 {
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +48,7 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 	public JQMapLegendFeature(JQGradientsLinearFeature gradientFeature)
 	{
 		super("JWMapLegendFeature");
-		this.gradientsFeature = gradientFeature;
+		gradientsFeature = gradientFeature;
 		setComponent(getLayoutDiv());
 		layoutDiv.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
 		firstHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
@@ -54,13 +56,12 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 
 		getGradientsFeature().setComponent(getLayoutDiv());
 	}
-	
-	@Override
-	protected void assignFunctionsToComponent()
+
+	public Div getLayoutDiv()
 	{
-		//No queries needed
+		return layoutDiv;
 	}
-	
+
 	public JQGradientsLinearFeature getGradientsFeature()
 	{
 		if (gradientsFeature == null)
@@ -75,14 +76,20 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 		this.gradientsFeature = gradientsFeature;
 	}
 
-	public Div getLayoutDiv()
-	{
-		return layoutDiv;
-	}
-
 	public void setLayoutDiv(Div layoutDiv)
 	{
 		this.layoutDiv = layoutDiv;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + getGradientsFeature().hashCode();
+		result = 31 * result + getLayoutDiv().hashCode();
+		result = 31 * result + firstHalf.hashCode();
+		result = 31 * result + secondHalf.hashCode();
+		return result;
 	}
 
 	@Override
@@ -119,13 +126,8 @@ public class JQMapLegendFeature extends Feature<JavaScriptPart, JQMapLegendFeatu
 	}
 
 	@Override
-	public int hashCode()
+	protected void assignFunctionsToComponent()
 	{
-		int result = super.hashCode();
-		result = 31 * result + getGradientsFeature().hashCode();
-		result = 31 * result + getLayoutDiv().hashCode();
-		result = 31 * result + firstHalf.hashCode();
-		result = 31 * result + secondHalf.hashCode();
-		return result;
+		//No queries needed
 	}
 }

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.base.references.JavascriptReference;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author GedMarc
- * @version 1.0
- * <p>
- * @since Mar 2, 2015
  */
-public class JQHilightReference extends JavascriptReference
+public class JQImageMapTest
 {
 
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 *
-	 */
-	public JQHilightReference()
+	@Test
+	public void testIsRatioConfigured()
 	{
-		super("JQueryMapHilightReference", 1.0, "bower_components/jquery-image-heatmap/jquery.maphilight.js");
+		JQImageMap imageMap = new JQImageMap("image");
+		imageMap.setInteractive(true);
+		JQMapInteractiveFeature in = new JQMapInteractiveFeature(imageMap);
+		in.addProperty(InteractiveFeatureProperties.fill, "true");
+		in.addProperty(InteractiveFeatureProperties.overlayColorPermanent, "004d36");
+		in.addProperty(InteractiveFeatureProperties.overlayColorOpacity, "0.4");
+		System.out.println(in.getProperties(true));
+		System.out.println(in.getProperties(false));
+
+		System.out.println(imageMap.toString(true));
+
+		System.out.println(imageMap.renderJavascriptAll());
+
 	}
+
 }

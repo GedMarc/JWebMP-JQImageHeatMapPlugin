@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.base.html.Area;
-import za.co.mmagon.jwebswing.base.html.attributes.AreaAttributes;
-import za.co.mmagon.jwebswing.base.html.attributes.GlobalAttributes;
-import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapChildren;
+import com.jwebmp.base.html.Area;
+import com.jwebmp.base.html.attributes.AreaAttributes;
+import com.jwebmp.base.html.attributes.GlobalAttributes;
+import com.jwebmp.base.html.interfaces.children.ImageMapChildren;
 import za.co.mmagon.logger.LogFactory;
 
 import java.text.DecimalFormat;
@@ -27,16 +27,19 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static za.co.mmagon.jwebswing.utilities.StaticStrings.STRING_COMMNA;
+import static com.jwebmp.utilities.StaticStrings.STRING_COMMNA;
 
 /**
  * @author GedMarc
  * @since 15 Feb 2017
  */
-public class HighlightedArea extends Area implements ImageMapChildren
+public class HighlightedArea
+		extends Area
+		implements ImageMapChildren
 {
 
-	private static final Logger LOG = LogFactory.getInstance().getLogger("HighlightedArea");
+	private static final Logger LOG = LogFactory.getInstance()
+	                                            .getLogger("HighlightedArea");
 	private static final long serialVersionUID = 1L;
 	private ImageMapAreaShapes areaShape;
 
@@ -46,6 +49,19 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	private JQMapInteractiveFeature interactiveProperties;
 	private JQImageMap drillMap;
 	private DecimalFormat decimalFormat;
+
+	/**
+	 * Construct a new area tag with the given co-ordinates and area shape. The name "MapArea" is assigned as a default for image maps
+	 *
+	 * @param areaShape
+	 * 		The area shape
+	 * @param coordinates
+	 * 		The co-ordinates of this area
+	 */
+	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
+	{
+		this(areaShape, coordinates, "MapArea");
+	}
 
 	/**
 	 * Construct a new area tag with the given co-ordinates and area shape. A name is required
@@ -64,21 +80,53 @@ public class HighlightedArea extends Area implements ImageMapChildren
 		this.coordinates = coordinates;
 		addAttribute(GlobalAttributes.Name, name);
 		addAttribute(AreaAttributes.Coords, this.coordinates);
-		addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
+		addAttribute(AreaAttributes.Shape, areaShape.name()
+		                                            .toLowerCase());
 		setInlineClosingTag(true);
 	}
 
 	/**
-	 * Construct a new area tag with the given co-ordinates and area shape. The name "MapArea" is assigned as a default for image maps
+	 * If a drill through map is specified, returns this map
 	 *
-	 * @param areaShape
-	 * 		The area shape
-	 * @param coordinates
-	 * 		The co-ordinates of this area
+	 * @return
 	 */
-	public HighlightedArea(ImageMapAreaShapes areaShape, String coordinates)
+	public JQImageMap getDrillMap()
 	{
-		this(areaShape, coordinates, "MapArea");
+		return drillMap;
+	}
+
+	/**
+	 * Sets the drill map drill through
+	 *
+	 * @param drillMap
+	 */
+	public void setDrillMap(JQImageMap drillMap)
+	{
+		this.drillMap = drillMap;
+	}
+
+	/**
+	 * Returns the interactive properties of this feature
+	 *
+	 * @return
+	 */
+	public JQMapInteractiveFeature getInteractiveProperties()
+	{
+		if (interactiveProperties == null)
+		{
+			interactiveProperties = new JQMapInteractiveFeature(null);
+		}
+		return interactiveProperties;
+	}
+
+	/**
+	 * Retrieves the Co-Ordinates array
+	 *
+	 * @return int[2]
+	 */
+	public int[][] getCoordinatesArray()
+	{
+		return getArrayFromStringCoordinates(coordinates);
 	}
 
 	/**
@@ -111,67 +159,6 @@ public class HighlightedArea extends Area implements ImageMapChildren
 			}
 		}
 		return coords;
-	}
-
-	/**
-	 * If a drill through map is specified, returns this map
-	 *
-	 * @return
-	 */
-	public JQImageMap getDrillMap()
-	{
-		return drillMap;
-	}
-
-	/**
-	 * Sets the drill map drill through
-	 *
-	 * @param drillMap
-	 */
-	public void setDrillMap(JQImageMap drillMap)
-	{
-		this.drillMap = drillMap;
-	}
-
-	/**
-	 * Pre-configures this component with all the required attributes and features
-	 */
-	@Override
-	public void preConfigure()
-	{
-		if (coordinates != null)
-		{
-			addAttribute(AreaAttributes.Coords, this.coordinates);
-		}
-		if (areaShape != null)
-		{
-			addAttribute(AreaAttributes.Shape, areaShape.name().toLowerCase());
-		}
-		super.preConfigure();
-	}
-
-	/**
-	 * Returns the interactive properties of this feature
-	 *
-	 * @return
-	 */
-	public JQMapInteractiveFeature getInteractiveProperties()
-	{
-		if (interactiveProperties == null)
-		{
-			interactiveProperties = new JQMapInteractiveFeature(null);
-		}
-		return interactiveProperties;
-	}
-
-	/**
-	 * Retrieves the Co-Ordinates array
-	 *
-	 * @return int[2]
-	 */
-	public int[][] getCoordinatesArray()
-	{
-		return getArrayFromStringCoordinates(this.coordinates);
 	}
 
 	/**
@@ -241,7 +228,7 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	 */
 	public void setValue(String value)
 	{
-		this.prettyValue = value;
+		prettyValue = value;
 	}
 
 	/**
@@ -285,14 +272,32 @@ public class HighlightedArea extends Area implements ImageMapChildren
 	}
 
 	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
+	}
+
+	@Override
 	public boolean equals(Object o)
 	{
 		return super.equals(o);
 	}
 
+	/**
+	 * Pre-configures this component with all the required attributes and features
+	 */
 	@Override
-	public int hashCode()
+	public void preConfigure()
 	{
-		return super.hashCode();
+		if (coordinates != null)
+		{
+			addAttribute(AreaAttributes.Coords, coordinates);
+		}
+		if (areaShape != null)
+		{
+			addAttribute(AreaAttributes.Shape, areaShape.name()
+			                                            .toLowerCase());
+		}
+		super.preConfigure();
 	}
 }

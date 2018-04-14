@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.plugins.PluginInformation;
+import com.jwebmp.plugins.PluginInformation;
 
 /**
  * @author GedMarc

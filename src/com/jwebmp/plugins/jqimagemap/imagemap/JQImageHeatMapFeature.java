@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.Feature;
-import za.co.mmagon.jwebswing.base.html.interfaces.children.ImageMapFeatures;
-import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
-import za.co.mmagon.jwebswing.utilities.ColourUtils;
+import com.jwebmp.Feature;
+import com.jwebmp.base.html.interfaces.children.ImageMapFeatures;
+import com.jwebmp.htmlbuilder.javascript.JavaScriptPart;
+import com.jwebmp.utilities.ColourUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,9 @@ import java.util.List;
  * 		<p>
  * 		<p>
  */
-public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMapFeature> implements ImageMapFeatures
+public class JQImageHeatMapFeature
+		extends Feature<JavaScriptPart, JQImageHeatMapFeature>
+		implements ImageMapFeatures
 {
 
 	private static final long serialVersionUID = 1L;
@@ -86,58 +88,46 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 		this.imageMap = imageMap;
 		setComponent(imageMap);
 		this.allValues = allValues;
-		this.minimumValue = getMinNumber(allValues);
-		this.maximumValue = getMaxNumber(allValues);
+		minimumValue = getMinNumber(allValues);
+		maximumValue = getMaxNumber(allValues);
 	}
 
 	/**
-	 * Returns the minimum value
+	 * Returns the Minimum Number for the Provinces
 	 *
 	 * @return
 	 */
-	public double getMinimumValue()
+	private double getMinNumber(List<Double> provinceValues)
 	{
-		this.minimumValue = getMinNumber(allValues);
-		this.maximumValue = getMaxNumber(allValues);
-		return minimumValue;
+		Double min = 999999999.0;
+
+		for (Double type : provinceValues)
+		{
+			if (type < min)
+			{
+				min = type;
+			}
+		}
+		return min;
 	}
 
 	/**
-	 * Sets the minimum value
-	 *
-	 * @param minimumValue
-	 */
-	public void setMinimumValue(double minimumValue)
-	{
-		this.minimumValue = minimumValue;
-	}
-
-	@Override
-	protected void assignFunctionsToComponent()
-	{
-		//No queries needed
-	}
-
-	/**
-	 * Returns the max value
+	 * Returns the maximum number for all the provinces
 	 *
 	 * @return
 	 */
-	public double getMaximumValue()
+	private double getMaxNumber(List<Double> provinceValues)
 	{
-		this.minimumValue = getMinNumber(allValues);
-		this.maximumValue = getMaxNumber(allValues);
-		return maximumValue;
-	}
+		Double max = 0.0;
 
-	/**
-	 * Sets the max value
-	 *
-	 * @param maximumValue
-	 */
-	public void setMaximumValue(double maximumValue)
-	{
-		this.maximumValue = maximumValue;
+		for (Double type : provinceValues)
+		{
+			if (type > max)
+			{
+				max = type;
+			}
+		}
+		return max;
 	}
 
 	/**
@@ -147,8 +137,8 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	 */
 	public void setValues(List<Double> allValues)
 	{
-		this.minimumValue = getMinNumber(allValues);
-		this.maximumValue = getMaxNumber(allValues);
+		minimumValue = getMinNumber(allValues);
+		maximumValue = getMaxNumber(allValues);
 		this.allValues = allValues;
 	}
 
@@ -162,6 +152,50 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	public String getColourForValue(double value)
 	{
 		return ColourUtils.getColourBetweenColours(getMinimumValue(), getMaximumValue(), value, getColourMin(), getColourMax());
+	}
+
+	/**
+	 * Returns the minimum value
+	 *
+	 * @return
+	 */
+	public double getMinimumValue()
+	{
+		minimumValue = getMinNumber(allValues);
+		maximumValue = getMaxNumber(allValues);
+		return minimumValue;
+	}
+
+	/**
+	 * Sets the minimum value
+	 *
+	 * @param minimumValue
+	 */
+	public void setMinimumValue(double minimumValue)
+	{
+		this.minimumValue = minimumValue;
+	}
+
+	/**
+	 * Returns the max value
+	 *
+	 * @return
+	 */
+	public double getMaximumValue()
+	{
+		minimumValue = getMinNumber(allValues);
+		maximumValue = getMaxNumber(allValues);
+		return maximumValue;
+	}
+
+	/**
+	 * Sets the max value
+	 *
+	 * @param maximumValue
+	 */
+	public void setMaximumValue(double maximumValue)
+	{
+		this.maximumValue = maximumValue;
 	}
 
 	/**
@@ -205,44 +239,6 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	}
 
 	/**
-	 * Returns the Minimum Number for the Provinces
-	 *
-	 * @return
-	 */
-	private double getMinNumber(List<Double> provinceValues)
-	{
-		Double min = 999999999.0;
-
-		for (Double type : provinceValues)
-		{
-			if (type < min)
-			{
-				min = type;
-			}
-		}
-		return min;
-	}
-
-	/**
-	 * Returns the maximum number for all the provinces
-	 *
-	 * @return
-	 */
-	private double getMaxNumber(List<Double> provinceValues)
-	{
-		Double max = 0.0;
-
-		for (Double type : provinceValues)
-		{
-			if (type > max)
-			{
-				max = type;
-			}
-		}
-		return max;
-	}
-
-	/**
 	 * Returns the middle number of the provinces or the custom middle number value entered 0.0 if the middle number is not a number
 	 *
 	 * @return
@@ -254,24 +250,20 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 		return (min + max) / 2;
 	}
 
-	/**
-	 * Returns the image map
-	 *
-	 * @return
-	 */
-	public JQImageMap getImageMap()
+	@Override
+	public int hashCode()
 	{
-		return imageMap;
-	}
-
-	/**
-	 * Returns all the currently assigned values
-	 *
-	 * @return
-	 */
-	public List<Double> getAllValues()
-	{
-		return allValues;
+		int result = super.hashCode();
+		long temp;
+		result = 31 * result + (getImageMap() != null ? getImageMap().hashCode() : 0);
+		temp = Double.doubleToLongBits(getMinimumValue());
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(getMaximumValue());
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + getColourMin().hashCode();
+		result = 31 * result + getColourMax().hashCode();
+		result = 31 * result + getAllValues().hashCode();
+		return result;
 	}
 
 	@Override
@@ -312,18 +304,28 @@ public class JQImageHeatMapFeature extends Feature<JavaScriptPart, JQImageHeatMa
 	}
 
 	@Override
-	public int hashCode()
+	protected void assignFunctionsToComponent()
 	{
-		int result = super.hashCode();
-		long temp;
-		result = 31 * result + (getImageMap() != null ? getImageMap().hashCode() : 0);
-		temp = Double.doubleToLongBits(getMinimumValue());
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(getMaximumValue());
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		result = 31 * result + getColourMin().hashCode();
-		result = 31 * result + getColourMax().hashCode();
-		result = 31 * result + getAllValues().hashCode();
-		return result;
+		//No queries needed
+	}
+
+	/**
+	 * Returns the image map
+	 *
+	 * @return
+	 */
+	public JQImageMap getImageMap()
+	{
+		return imageMap;
+	}
+
+	/**
+	 * Returns all the currently assigned values
+	 *
+	 * @return
+	 */
+	public List<Double> getAllValues()
+	{
+		return allValues;
 	}
 }

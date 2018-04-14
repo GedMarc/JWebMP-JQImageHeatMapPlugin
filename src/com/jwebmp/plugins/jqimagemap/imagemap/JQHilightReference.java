@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,23 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
-import za.co.mmagon.jwebswing.htmlbuilder.javascript.JavaScriptPart;
+import com.jwebmp.base.references.JavascriptReference;
 
 /**
- * @author Marc Magon
+ * @author GedMarc
  * @version 1.0
- * @since 30 Aug 2015
+ * <p>
+ * @since Mar 2, 2015
  */
-public class JQImageMapOptions extends JavaScriptPart
+public class JQHilightReference extends JavascriptReference
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public JQImageMapOptions()
+	/**
+	 *
+	 */
+	public JQHilightReference()
 	{
-		//Nothing needed
+		super("JQueryMapHilightReference", 1.0, "bower_components/jquery-image-heatmap/jquery.maphilight.js");
 	}
-
 }

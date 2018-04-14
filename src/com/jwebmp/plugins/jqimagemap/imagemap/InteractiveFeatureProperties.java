@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Marc Magon
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package za.co.mmagon.jwebswing.plugins.jqimagemap.imagemap;
+package com.jwebmp.plugins.jqimagemap.imagemap;
 
 public enum InteractiveFeatureProperties
 {
@@ -119,31 +119,31 @@ public enum InteractiveFeatureProperties
 	 * Available attribute association ID
 	 */
 	attName2(String.class, "Holder 2");
-	
+
 	private Class classType;
 	private Object defaultValue;
-	
+
 	InteractiveFeatureProperties(Class classType, Object defaultValue)
 	{
 		this.classType = classType;
 		this.defaultValue = defaultValue;
 	}
-	
+
 	public Class getClassType()
 	{
 		return classType;
 	}
-	
+
 	public void setClassType(Class classType)
 	{
 		this.classType = classType;
 	}
-	
+
 	public Object getDefaultValue()
 	{
 		return defaultValue;
 	}
-	
+
 	public void setDefaultValue(Object defaultValue)
 	{
 		this.defaultValue = defaultValue;
