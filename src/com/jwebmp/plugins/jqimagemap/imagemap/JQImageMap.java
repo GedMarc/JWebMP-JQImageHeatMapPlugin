@@ -688,8 +688,8 @@ public class JQImageMap<J extends JQImageMap>
 			image.addAttribute(ImageAttributes.Width, displayXSize + "px");
 			image.addAttribute(ImageAttributes.Height, displayYSize + "px");
 
-			int ratioXDifference = (int) (new Double(displayXSize) / new Double(imageXSize));
-			int ratioYDifference = (int) (new Double(displayYSize) / new Double(imageYSize));
+			int ratioXDifference = displayXSize / imageXSize;
+			int ratioYDifference = displayYSize / imageYSize;
 
 			int[] xArray;
 			int[] yArray;
@@ -776,13 +776,12 @@ public class JQImageMap<J extends JQImageMap>
 			getChildren().add(legendFeature.getLayoutDiv());
 		}
 
-		double totalValue = 0.0;
+
 		ArrayList<Double> values = new ArrayList();
 		for (Iterator<ComponentHierarchyBase> it = map.getChildren()
 		                                              .iterator(); it.hasNext(); )
 		{
 			HighlightedArea area = (HighlightedArea) it.next();
-			totalValue += area.getValue();
 			values.add(area.getValue());
 		}
 		heatMapFeature.setValues(values);
