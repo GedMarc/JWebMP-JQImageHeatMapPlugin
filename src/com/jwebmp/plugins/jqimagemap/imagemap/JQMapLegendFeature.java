@@ -48,11 +48,11 @@ public class JQMapLegendFeature
 	public JQMapLegendFeature(JQGradientsLinearFeature gradientFeature)
 	{
 		super("JWMapLegendFeature");
-		gradientsFeature = gradientFeature;
 		setComponent(getLayoutDiv());
 		layoutDiv.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
 		firstHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
 		secondHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
+		gradientsFeature = gradientFeature;
 
 		getGradientsFeature().setComponent(getLayoutDiv());
 	}
@@ -84,45 +84,13 @@ public class JQMapLegendFeature
 	@Override
 	public int hashCode()
 	{
-		int result = super.hashCode();
-		result = 31 * result + getGradientsFeature().hashCode();
-		result = 31 * result + getLayoutDiv().hashCode();
-		result = 31 * result + firstHalf.hashCode();
-		result = 31 * result + secondHalf.hashCode();
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		if (!super.equals(o))
-		{
-			return false;
-		}
-
-		JQMapLegendFeature that = (JQMapLegendFeature) o;
-
-		if (!getGradientsFeature().equals(that.getGradientsFeature()))
-		{
-			return false;
-		}
-		if (!getLayoutDiv().equals(that.getLayoutDiv()))
-		{
-			return false;
-		}
-		if (!firstHalf.equals(that.firstHalf))
-		{
-			return false;
-		}
-		return secondHalf.equals(that.secondHalf);
+		return super.equals(o);
 	}
 
 	@Override
