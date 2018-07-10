@@ -37,12 +37,11 @@ import com.jwebmp.plugins.ComponentInformation;
 import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
 import com.jwebmp.utilities.StaticStrings;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.jwebmp.utilities.StaticStrings.STRING_COMMNA;
+import static com.jwebmp.utilities.StaticStrings.*;
 
 /**
  * The image map component
@@ -256,7 +255,7 @@ public class JQImageMap<J extends JQImageMap>
 	 * @return
 	 */
 	@Override
-	@Nullable
+
 	public JQMapInteractiveFeature getDefaultProperties()
 	{
 		return defaultProperties;
@@ -776,7 +775,6 @@ public class JQImageMap<J extends JQImageMap>
 			getChildren().add(legendFeature.getLayoutDiv());
 		}
 
-
 		ArrayList<Double> values = new ArrayList();
 		for (Iterator<ComponentHierarchyBase> it = map.getChildren()
 		                                              .iterator(); it.hasNext(); )
@@ -818,7 +816,6 @@ public class JQImageMap<J extends JQImageMap>
 			{
 				areaLableDiv.setText(areaLableDiv.getText(0) + "<br>" + area.getPrettyValue());
 			}
-
 
 			areaLableDiv.addAttribute(GlobalAttributes.Style, "position:absolute");
 			areaLableDiv.addFeature(new Binder(areaLableDiv, area));
