@@ -16,10 +16,10 @@
  */
 package com.jwebmp.plugins.imagemap;
 
-import com.jwebmp.base.html.Area;
-import com.jwebmp.base.html.Div;
-import com.jwebmp.base.html.Image;
-import com.jwebmp.base.html.Map;
+import com.jwebmp.core.base.html.Area;
+import com.jwebmp.core.base.html.Div;
+import com.jwebmp.core.base.html.Image;
+import com.jwebmp.core.base.html.Map;
 import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
 
 /**

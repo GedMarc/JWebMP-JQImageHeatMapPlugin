@@ -16,7 +16,7 @@
  */
 package com.jwebmp.plugins.imagemap;
 
-import com.jwebmp.plugins.PluginInformation;
+import com.jwebmp.core.plugins.PluginInformation;
 
 /**
  * @author GedMarc

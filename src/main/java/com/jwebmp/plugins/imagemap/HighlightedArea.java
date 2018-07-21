@@ -16,10 +16,10 @@
  */
 package com.jwebmp.plugins.imagemap;
 
-import com.jwebmp.base.html.Area;
-import com.jwebmp.base.html.attributes.AreaAttributes;
-import com.jwebmp.base.html.attributes.GlobalAttributes;
-import com.jwebmp.base.html.interfaces.children.ImageMapChildren;
+import com.jwebmp.core.base.html.Area;
+import com.jwebmp.core.base.html.attributes.AreaAttributes;
+import com.jwebmp.core.base.html.attributes.GlobalAttributes;
+import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
 import com.jwebmp.logger.LogFactory;
 
 import java.text.DecimalFormat;
@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.jwebmp.utilities.StaticStrings.*;
+import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
  * @author GedMarc

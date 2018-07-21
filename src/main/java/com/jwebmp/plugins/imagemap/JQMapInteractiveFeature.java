@@ -16,10 +16,10 @@
  */
 package com.jwebmp.plugins.imagemap;
 
-import com.jwebmp.Feature;
-import com.jwebmp.base.html.interfaces.children.ImageMapFeatures;
-import com.jwebmp.htmlbuilder.javascript.JavaScriptPart;
-import com.jwebmp.utilities.StaticStrings;
+import com.jwebmp.core.Feature;
+import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
+import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
+import com.jwebmp.core.utilities.StaticStrings;
 
 import java.io.Serializable;
 import java.util.EnumMap;

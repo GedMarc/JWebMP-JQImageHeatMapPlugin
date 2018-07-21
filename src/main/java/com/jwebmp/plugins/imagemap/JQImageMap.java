@@ -16,32 +16,32 @@
  */
 package com.jwebmp.plugins.imagemap;
 
-import com.jwebmp.Component;
-import com.jwebmp.Feature;
-import com.jwebmp.base.ComponentHierarchyBase;
-import com.jwebmp.base.html.*;
-import com.jwebmp.base.html.attributes.AreaAttributes;
-import com.jwebmp.base.html.attributes.GlobalAttributes;
-import com.jwebmp.base.html.attributes.ImageAttributes;
-import com.jwebmp.base.html.attributes.ImageMapAttributes;
-import com.jwebmp.base.html.interfaces.children.BodyChildren;
-import com.jwebmp.base.html.interfaces.children.ImageMapChildren;
-import com.jwebmp.base.html.interfaces.children.ImageMapFeatures;
-import com.jwebmp.base.html.interfaces.events.GlobalEvents;
-import com.jwebmp.base.servlets.enumarations.ComponentTypes;
-import com.jwebmp.generics.Direction;
-import com.jwebmp.htmlbuilder.css.displays.DisplayCSS;
-import com.jwebmp.htmlbuilder.css.displays.Positions;
-import com.jwebmp.htmlbuilder.javascript.JavaScriptPart;
-import com.jwebmp.plugins.ComponentInformation;
+import com.jwebmp.core.Component;
+import com.jwebmp.core.Feature;
+import com.jwebmp.core.base.ComponentHierarchyBase;
+import com.jwebmp.core.base.html.*;
+import com.jwebmp.core.base.html.attributes.AreaAttributes;
+import com.jwebmp.core.base.html.attributes.GlobalAttributes;
+import com.jwebmp.core.base.html.attributes.ImageAttributes;
+import com.jwebmp.core.base.html.attributes.ImageMapAttributes;
+import com.jwebmp.core.base.html.interfaces.children.BodyChildren;
+import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
+import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
+import com.jwebmp.core.base.html.interfaces.events.GlobalEvents;
+import com.jwebmp.core.base.servlets.enumarations.ComponentTypes;
+import com.jwebmp.core.generics.Direction;
+import com.jwebmp.core.htmlbuilder.css.displays.DisplayCSS;
+import com.jwebmp.core.htmlbuilder.css.displays.Positions;
+import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
+import com.jwebmp.core.plugins.ComponentInformation;
+import com.jwebmp.core.utilities.StaticStrings;
 import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
-import com.jwebmp.utilities.StaticStrings;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.jwebmp.utilities.StaticStrings.*;
+import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
  * The image map component
