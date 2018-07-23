@@ -16,7 +16,9 @@
  */
 package com.jwebmp.plugins.imagemap;
 
+import com.jwebmp.core.Page;
 import com.jwebmp.core.plugins.PluginInformation;
+import com.jwebmp.core.services.IPageConfigurator;
 
 /**
  * @author GedMarc
@@ -39,10 +41,17 @@ import com.jwebmp.core.plugins.PluginInformation;
 		pluginLastUpdatedDate = "2017/03/04"
 )
 public class JQImageMapPageConfigurator
+		implements IPageConfigurator
 {
 
 	public JQImageMapPageConfigurator()
 	{
 		//No configuration needed
+	}
+
+	@Override
+	public Page<?> configure(Page<?> page)
+	{
+		return page;
 	}
 }

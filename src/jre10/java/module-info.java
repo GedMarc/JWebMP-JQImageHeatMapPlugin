@@ -1,3 +1,6 @@
+import com.jwebmp.core.services.IPageConfigurator;
+import com.jwebmp.plugins.imagemap.JQImageMapPageConfigurator;
+
 module com.jwebmp.plugins.imagemap {
 	exports com.jwebmp.plugins.imagemap;
 
@@ -8,4 +11,7 @@ module com.jwebmp.plugins.imagemap {
 	requires java.validation;
 	requires java.logging;
 	requires com.jwebmp.plugins.jqgradientlinear;
+
+	provides IPageConfigurator with JQImageMapPageConfigurator;
+
 }
