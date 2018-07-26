@@ -13,5 +13,5 @@ module com.jwebmp.plugins.imagemap {
 	requires com.jwebmp.plugins.jqgradientlinear;
 
 	provides IPageConfigurator with JQImageMapPageConfigurator;
-
+	opens com.jwebmp.plugins.imagemap to com.fasterxml.jackson.databind,com.jwebmp.core;
 }
