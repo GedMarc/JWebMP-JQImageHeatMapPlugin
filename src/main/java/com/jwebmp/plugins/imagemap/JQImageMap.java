@@ -24,9 +24,8 @@ import com.jwebmp.core.base.html.attributes.AreaAttributes;
 import com.jwebmp.core.base.html.attributes.GlobalAttributes;
 import com.jwebmp.core.base.html.attributes.ImageAttributes;
 import com.jwebmp.core.base.html.attributes.ImageMapAttributes;
-import com.jwebmp.core.base.html.interfaces.children.BodyChildren;
+import com.jwebmp.core.base.html.interfaces.GlobalFeatures;
 import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
-import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
 import com.jwebmp.core.base.html.interfaces.events.GlobalEvents;
 import com.jwebmp.core.base.servlets.enumarations.ComponentTypes;
 import com.jwebmp.core.generics.Direction;
@@ -57,8 +56,8 @@ import static com.jwebmp.core.utilities.StaticStrings.*;
 		description = "An image map with selectable colour coded areas that can be determined from a series of values.",
 		url = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/")
 public class JQImageMap<J extends JQImageMap>
-		extends Component<ImageMapChildren, ImageMapAttributes, ImageMapFeatures, GlobalEvents, JQImageMap<J>>
-		implements BodyChildren, IJQImageMap
+		extends Component<ImageMapChildren, ImageMapAttributes, GlobalFeatures, GlobalEvents, JQImageMap<J>>
+		implements IJQImageMap
 {
 
 	private static final long serialVersionUID = 1L;
@@ -834,110 +833,19 @@ public class JQImageMap<J extends JQImageMap>
 	}
 
 	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		if (!super.equals(o))
-		{
-			return false;
-		}
-
-		JQImageMap<?> that = (JQImageMap<?>) o;
-
-		if (getImageXSize() != that.getImageXSize())
-		{
-			return false;
-		}
-		if (getImageYSize() != that.getImageYSize())
-		{
-			return false;
-		}
-		if (getDisplayXSize() != that.getDisplayXSize())
-		{
-			return false;
-		}
-		if (getDisplayYSize() != that.getDisplayYSize())
-		{
-			return false;
-		}
-		if (isHeatmap() != that.isHeatmap())
-		{
-			return false;
-		}
-		if (isInteractive() != that.isInteractive())
-		{
-			return false;
-		}
-		if (isLabeled() != that.isLabeled())
-		{
-			return false;
-		}
-		if (isLegend() != that.isLegend())
-		{
-			return false;
-		}
-		if (isValueDisplayed() != that.isValueDisplayed())
-		{
-			return false;
-		}
-		if (isRatioConfigured() != that.isRatioConfigured())
-		{
-			return false;
-		}
-		if (!getHeatMapFeature().equals(that.getHeatMapFeature()))
-		{
-			return false;
-		}
-		if (getLabelsDiv() != null ? !getLabelsDiv().equals(that.getLabelsDiv()) : that.getLabelsDiv() != null)
-		{
-			return false;
-		}
-		if (getLegendDiv() != null ? !getLegendDiv().equals(that.getLegendDiv()) : that.getLegendDiv() != null)
-		{
-			return false;
-		}
-		if (!getMap().equals(that.getMap()))
-		{
-			return false;
-		}
-		if (!getImage().equals(that.getImage()))
-		{
-			return false;
-		}
-		if (getLabelHeadDiv() != null ? !getLabelHeadDiv().equals(that.getLabelHeadDiv()) : that.getLabelHeadDiv() != null)
-		{
-			return false;
-		}
-		if (getDefaultProperties() != null ? !getDefaultProperties().equals(that.getDefaultProperties()) : that.getDefaultProperties() != null)
-		{
-			return false;
-		}
-		if (getGradientFeature() != null ? !getGradientFeature().equals(that.getGradientFeature()) : that.getGradientFeature() != null)
-		{
-			return false;
-		}
-		if (getLegendFeature() != null ? !getLegendFeature().equals(that.getLegendFeature()) : that.getLegendFeature() != null)
-		{
-			return false;
-		}
-		return getMapImageUrl() != null ? getMapImageUrl().equals(that.getMapImageUrl()) : that.getMapImageUrl() == null;
-	}
-
-	@Override
 	public int hashCode()
 	{
 		return super.hashCode();
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		return super.equals(o);
+	}
+
 	class Binder
-			extends Feature<JavaScriptPart, Binder>
+			extends Feature<Binder, JavaScriptPart, Binder>
 	{
 
 		private static final long serialVersionUID = 1L;
@@ -955,35 +863,13 @@ public class JQImageMap<J extends JQImageMap>
 		@Override
 		public int hashCode()
 		{
-			int result = super.hashCode();
-			result = 31 * result + label.hashCode();
-			result = 31 * result + area.hashCode();
-			return result;
+			return super.hashCode();
 		}
 
 		@Override
-		public boolean equals(Object o)
+		public boolean equals(Object obj)
 		{
-			if (this == o)
-			{
-				return true;
-			}
-			if (o == null || getClass() != o.getClass())
-			{
-				return false;
-			}
-			if (!super.equals(o))
-			{
-				return false;
-			}
-
-			Binder binder = (Binder) o;
-
-			if (!label.equals(binder.label))
-			{
-				return false;
-			}
-			return area.equals(binder.area);
+			return super.equals(obj);
 		}
 
 		@Override

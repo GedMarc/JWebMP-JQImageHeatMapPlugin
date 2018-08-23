@@ -17,7 +17,6 @@
 package com.jwebmp.plugins.imagemap;
 
 import com.jwebmp.core.Feature;
-import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
 import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
 import com.jwebmp.core.utilities.ColourUtils;
 
@@ -30,8 +29,7 @@ import java.util.List;
  * 		<p>
  */
 public class JQImageHeatMapFeature
-		extends Feature<JavaScriptPart, JQImageHeatMapFeature>
-		implements ImageMapFeatures
+		extends Feature<JQImageHeatMapFeature, JavaScriptPart, JQImageHeatMapFeature>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -253,54 +251,13 @@ public class JQImageHeatMapFeature
 	@Override
 	public int hashCode()
 	{
-		int result = super.hashCode();
-		long temp;
-		result = 31 * result + (getImageMap() != null ? getImageMap().hashCode() : 0);
-		temp = Double.doubleToLongBits(getMinimumValue());
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(getMaximumValue());
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		result = 31 * result + getColourMin().hashCode();
-		result = 31 * result + getColourMax().hashCode();
-		result = 31 * result + getAllValues().hashCode();
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
-	public boolean equals(Object o)
+	public boolean equals(Object obj)
 	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		if (!super.equals(o))
-		{
-			return false;
-		}
-
-		JQImageHeatMapFeature that = (JQImageHeatMapFeature) o;
-
-		if (Double.compare(that.getMinimumValue(), getMinimumValue()) != 0)
-		{
-			return false;
-		}
-		if (Double.compare(that.getMaximumValue(), getMaximumValue()) != 0)
-		{
-			return false;
-		}
-		if (getImageMap() != null ? !getImageMap().equals(that.getImageMap()) : that.getImageMap() != null)
-		{
-			return false;
-		}
-		if (!getColourMin().equals(that.getColourMin()))
-		{
-			return false;
-		}
-		return getColourMax().equals(that.getColourMax()) && getAllValues().equals(that.getAllValues());
+		return super.equals(obj);
 	}
 
 	@Override

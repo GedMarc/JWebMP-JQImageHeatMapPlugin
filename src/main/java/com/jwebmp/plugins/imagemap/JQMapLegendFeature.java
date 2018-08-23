@@ -20,7 +20,6 @@ import com.jwebmp.core.Component;
 import com.jwebmp.core.Feature;
 import com.jwebmp.core.base.html.Div;
 import com.jwebmp.core.base.html.attributes.GlobalAttributes;
-import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
 import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
 import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
 
@@ -32,8 +31,7 @@ import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
  * @since 2013/11/27 03:06
  */
 public class JQMapLegendFeature
-		extends Feature<JavaScriptPart, JQMapLegendFeature>
-		implements ImageMapFeatures
+		extends Feature<JQMapLegendFeature, JavaScriptPart, JQMapLegendFeature>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -49,9 +47,9 @@ public class JQMapLegendFeature
 	{
 		super("JWMapLegendFeature");
 		setComponent(getLayoutDiv());
-		layoutDiv.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
-		firstHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
-		secondHalf.addAttribute(GlobalAttributes.Style, LEGEND_DEFAULT_STYLE);
+		layoutDiv.addAttribute(GlobalAttributes.Style, JQMapLegendFeature.LEGEND_DEFAULT_STYLE);
+		firstHalf.addAttribute(GlobalAttributes.Style, JQMapLegendFeature.LEGEND_DEFAULT_STYLE);
+		secondHalf.addAttribute(GlobalAttributes.Style, JQMapLegendFeature.LEGEND_DEFAULT_STYLE);
 		gradientsFeature = gradientFeature;
 
 		getGradientsFeature().setComponent(getLayoutDiv());

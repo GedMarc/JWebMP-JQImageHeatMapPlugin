@@ -17,7 +17,6 @@
 package com.jwebmp.plugins.imagemap;
 
 import com.jwebmp.core.Feature;
-import com.jwebmp.core.base.html.interfaces.children.ImageMapFeatures;
 import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
 import com.jwebmp.core.utilities.StaticStrings;
 
@@ -29,8 +28,7 @@ import java.util.Map;
  * @since @version @author MMagon
  */
 public class JQMapInteractiveFeature
-		extends Feature<JavaScriptPart, JQMapInteractiveFeature>
-		implements ImageMapFeatures
+		extends Feature<JQMapInteractiveFeature, JavaScriptPart, JQMapInteractiveFeature>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -77,32 +75,9 @@ public class JQMapInteractiveFeature
 	}
 
 	@Override
-	public boolean equals(Object o)
+	public boolean equals(Object obj)
 	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		if (!super.equals(o))
-		{
-			return false;
-		}
-
-		JQMapInteractiveFeature that = (JQMapInteractiveFeature) o;
-
-		if (isDefaultProperties() != that.isDefaultProperties())
-		{
-			return false;
-		}
-		if (!map.equals(that.map))
-		{
-			return false;
-		}
-		return getAppliedProperties().equals(that.getAppliedProperties());
+		return super.equals(obj);
 	}
 
 	@Override
@@ -171,16 +146,6 @@ public class JQMapInteractiveFeature
 		return defaultProperties;
 	}
 
-	public Map<InteractiveFeatureProperties, Serializable> getAppliedProperties()
-	{
-		return appliedProperties;
-	}
-
-	public void setAppliedProperties(Map<InteractiveFeatureProperties, Serializable> appliedProperties)
-	{
-		this.appliedProperties = appliedProperties;
-	}
-
 	/**
 	 * Sets if this is to be rendered as the default image map properties
 	 *
@@ -190,5 +155,15 @@ public class JQMapInteractiveFeature
 	public void setDefaultProperties(boolean defaultProperties)
 	{
 		this.defaultProperties = defaultProperties;
+	}
+
+	public Map<InteractiveFeatureProperties, Serializable> getAppliedProperties()
+	{
+		return appliedProperties;
+	}
+
+	public void setAppliedProperties(Map<InteractiveFeatureProperties, Serializable> appliedProperties)
+	{
+		this.appliedProperties = appliedProperties;
 	}
 }
