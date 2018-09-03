@@ -45,10 +45,39 @@ import javax.validation.constraints.NotNull;
 public class JQImageMapPageConfigurator
 		implements IPageConfigurator
 {
+	/**
+	 * If this configurator is enabled
+	 */
+	private static boolean enabled = true;
 
 	public JQImageMapPageConfigurator()
 	{
 		//No configuration needed
+	}
+
+	/**
+	 * Method isEnabled returns the enabled of this AngularAnimatedChangePageConfigurator object.
+	 * <p>
+	 * If this configurator is enabled
+	 *
+	 * @return the enabled (type boolean) of this AngularAnimatedChangePageConfigurator object.
+	 */
+	public static boolean isEnabled()
+	{
+		return JQImageMapPageConfigurator.enabled;
+	}
+
+	/**
+	 * Method setEnabled sets the enabled of this AngularAnimatedChangePageConfigurator object.
+	 * <p>
+	 * If this configurator is enabled
+	 *
+	 * @param mustEnable
+	 * 		the enabled of this AngularAnimatedChangePageConfigurator object.
+	 */
+	public static void setEnabled(boolean mustEnable)
+	{
+		JQImageMapPageConfigurator.enabled = mustEnable;
 	}
 
 	@NotNull
@@ -56,5 +85,11 @@ public class JQImageMapPageConfigurator
 	public Page<?> configure(Page<?> page)
 	{
 		return page;
+	}
+
+	@Override
+	public boolean enabled()
+	{
+		return JQImageMapPageConfigurator.enabled;
 	}
 }
