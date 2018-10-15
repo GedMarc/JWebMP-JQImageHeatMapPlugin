@@ -33,9 +33,9 @@ import javax.validation.constraints.NotNull;
 		pluginDependancyUniqueIDs = "jquery",
 		pluginCategories = "canvas, maphilight, jquery, map, area, map, polygons, heatmap, interactive",
 		pluginSubtitle = "All-In-One Image Map with interactive features, able to heat mapped",
-		pluginGitUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin",
+		pluginGitUrl = "https://github.com/GedMarc/JWebMP-JQImageHeatMapPlugin",
 		pluginSourceUrl = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/",
-		pluginWikiUrl = "https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin/wiki",
+		pluginWikiUrl = "https://github.com/GedMarc/JWebMP-JQImageHeatMapPlugin/wiki",
 		pluginOriginalHomepage = "http://davidlynch.org/blog/2008/03/maphilight-image-map-mouseover-highlighting/",
 		pluginDownloadUrl = "https://sourceforge.net/projects/jwebswing/files/plugins/JQImageHeatMapPlugin.jar/download",
 		pluginIconUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
@@ -43,7 +43,7 @@ import javax.validation.constraints.NotNull;
 		pluginLastUpdatedDate = "2017/03/04"
 )
 public class JQImageMapPageConfigurator
-		implements IPageConfigurator
+		implements IPageConfigurator<JQImageMapPageConfigurator>
 {
 	/**
 	 * If this configurator is enabled
