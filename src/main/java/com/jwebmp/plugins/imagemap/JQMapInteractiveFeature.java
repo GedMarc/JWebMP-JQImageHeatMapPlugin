@@ -20,7 +20,6 @@ import com.jwebmp.core.Feature;
 import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
 import com.jwebmp.core.utilities.StaticStrings;
 
-import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -31,11 +30,10 @@ public class JQMapInteractiveFeature
 		extends Feature<JQMapInteractiveFeature, JavaScriptPart, JQMapInteractiveFeature>
 {
 
-	private static final long serialVersionUID = 1L;
 
 	private JQImageMap map;
 	private boolean defaultProperties;
-	private Map<InteractiveFeatureProperties, Serializable> appliedProperties = new EnumMap<>(InteractiveFeatureProperties.class);
+	private Map<InteractiveFeatureProperties, Object> appliedProperties = new EnumMap<>(InteractiveFeatureProperties.class);
 
 	/**
 	 * Constructs a new Interactive feature for a map, or its area
@@ -103,7 +101,7 @@ public class JQMapInteractiveFeature
 	{
 		StringBuilder propertySB = new StringBuilder();
 		int current = 0;
-		for (Map.Entry<InteractiveFeatureProperties, Serializable> entry : appliedProperties.entrySet())
+		for (Map.Entry<InteractiveFeatureProperties, Object> entry : appliedProperties.entrySet())
 		{
 			InteractiveFeatureProperties interactiveFeatureProperties = entry.getKey();
 			Object object = entry.getValue();
@@ -157,12 +155,12 @@ public class JQMapInteractiveFeature
 		this.defaultProperties = defaultProperties;
 	}
 
-	public Map<InteractiveFeatureProperties, Serializable> getAppliedProperties()
+	public Map<InteractiveFeatureProperties, Object> getAppliedProperties()
 	{
 		return appliedProperties;
 	}
 
-	public void setAppliedProperties(Map<InteractiveFeatureProperties, Serializable> appliedProperties)
+	public void setAppliedProperties(Map<InteractiveFeatureProperties, Object> appliedProperties)
 	{
 		this.appliedProperties = appliedProperties;
 	}

@@ -32,7 +32,7 @@ public class JQImageHeatMapFeature
 		extends Feature<JQImageHeatMapFeature, JavaScriptPart, JQImageHeatMapFeature>
 {
 
-	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The image map
 	 */

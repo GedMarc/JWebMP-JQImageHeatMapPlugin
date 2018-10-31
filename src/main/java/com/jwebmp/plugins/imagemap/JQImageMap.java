@@ -60,7 +60,7 @@ public class JQImageMap<J extends JQImageMap>
 		implements IJQImageMap
 {
 
-	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The default interactive feature
 	 */
@@ -848,7 +848,6 @@ public class JQImageMap<J extends JQImageMap>
 			extends Feature<Binder, JavaScriptPart, Binder>
 	{
 
-		private static final long serialVersionUID = 1L;
 
 		Span label;
 		Area area;

@@ -40,7 +40,7 @@ public class HighlightedArea
 
 	private static final Logger LOG = LogFactory.getInstance()
 	                                            .getLogger("HighlightedArea");
-	private static final long serialVersionUID = 1L;
+
 	private ImageMapAreaShapes areaShape;
 
 	private String coordinates;
@@ -212,16 +212,6 @@ public class HighlightedArea
 	}
 
 	/**
-	 * Sets the value assigned to this area
-	 *
-	 * @param value
-	 */
-	public void setValue(String value)
-	{
-		prettyValue = value;
-	}
-
-	/**
 	 * Sets the value associated with this area
 	 *
 	 * @param value
@@ -229,6 +219,16 @@ public class HighlightedArea
 	public void setValue(double value)
 	{
 		this.value = value;
+	}
+
+	/**
+	 * Sets the value assigned to this area
+	 *
+	 * @param value
+	 */
+	public void setValue(String value)
+	{
+		prettyValue = value;
 	}
 
 	/**

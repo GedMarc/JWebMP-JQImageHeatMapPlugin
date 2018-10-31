@@ -34,7 +34,7 @@ public class JQMapLegendFeature
 		extends Feature<JQMapLegendFeature, JavaScriptPart, JQMapLegendFeature>
 {
 
-	private static final long serialVersionUID = 1L;
+
 	private static final String LEGEND_DEFAULT_STYLE = "width:100%; height: 20px; margin-top: 10px; margin-left: 10px; margin-right:10px";
 
 	private JQGradientsLinearFeature gradientsFeature;
