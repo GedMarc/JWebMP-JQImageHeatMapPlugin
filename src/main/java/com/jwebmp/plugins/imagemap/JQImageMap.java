@@ -701,15 +701,11 @@ public class JQImageMap<J extends JQImageMap>
 					int[][] allPoints = area.getCoordinatesArray();
 					xArray = new int[allPoints.length];
 					yArray = new int[allPoints.length];
-					int xTotal = 0;
-					int yTotal = 0;
 					for (int i = 0; i < allPoints.length; i++)
 					{
 						int[] is = allPoints[i];
 						xArray[i] = (is[0] * ratioXDifference);
-						xTotal += xArray[i];
 						yArray[i] = (is[1] * ratioYDifference);
-						yTotal += yArray[i];
 					}
 
 					StringBuilder coords = new StringBuilder();
