@@ -19,7 +19,10 @@ package com.jwebmp.plugins.imagemap;
 import com.jwebmp.core.base.html.Area;
 import com.jwebmp.core.base.html.attributes.AreaAttributes;
 import com.jwebmp.core.base.html.attributes.GlobalAttributes;
+import com.jwebmp.core.base.html.interfaces.GlobalChildren;
+import com.jwebmp.core.base.html.interfaces.children.AreaChildren;
 import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
+import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.logger.LogFactory;
 
 import java.text.DecimalFormat;
@@ -33,9 +36,9 @@ import static com.jwebmp.core.utilities.StaticStrings.*;
  * @author GedMarc
  * @since 15 Feb 2017
  */
-public class HighlightedArea
-		extends Area
-		implements ImageMapChildren
+public class HighlightedArea<C extends IComponentHierarchyBase & AreaChildren, J extends HighlightedArea<C, J>>
+		extends Area<C,J>
+		implements ImageMapChildren<C,J>
 {
 
 	private static final Logger LOG = LogFactory.getInstance()
