@@ -23,7 +23,7 @@ import com.jwebmp.core.base.html.interfaces.GlobalChildren;
 import com.jwebmp.core.base.html.interfaces.children.AreaChildren;
 import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
 import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
-import com.jwebmp.logger.LogFactory;
+import com.guicedee.logger.LogFactory;
 
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
