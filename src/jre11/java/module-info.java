@@ -11,8 +11,6 @@ module com.jwebmp.plugins.imagemap {
 	requires com.guicedee.guicedinjection;
 
 	provides com.jwebmp.core.services.IPageConfigurator with com.jwebmp.plugins.imagemap.JQImageMapPageConfigurator;
-
-	provides com.guicedee.guicedinjection.interfaces.IGuiceScanJarExclusions with com.jwebmp.plugins.imagemap.implementations.JQImageHeatMapExclusionsModule;
 	provides com.guicedee.guicedinjection.interfaces.IGuiceScanModuleExclusions with com.jwebmp.plugins.imagemap.implementations.JQImageHeatMapExclusionsModule;
 
 	opens com.jwebmp.plugins.imagemap to com.fasterxml.jackson.databind, com.jwebmp.core;
