@@ -40,6 +40,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static com.guicedee.guicedinjection.json.StaticStrings.STRING_COMMNA;
+import static com.guicedee.guicedinjection.json.StaticStrings.STRING_HASH;
 import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
@@ -196,7 +198,7 @@ public class JQImageMap<J extends JQImageMap>
 		image = new Image(this.mapImageUrl);
 
 		defaultProperties.setDefaultProperties(true);
-		image.addAttribute(ImageAttributes.UseMap, StaticStrings.STRING_HASH + map.getID());
+		image.addAttribute(ImageAttributes.UseMap, STRING_HASH + map.getID());
 		add(image);
 		add(map);
 	}

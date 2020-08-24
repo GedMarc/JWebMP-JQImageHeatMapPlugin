@@ -23,6 +23,8 @@ import com.jwebmp.core.utilities.StaticStrings;
 import java.util.EnumMap;
 import java.util.Map;
 
+import static com.guicedee.guicedinjection.json.StaticStrings.*;
+
 /**
  * @since @version @author MMagon
  */
@@ -114,21 +116,21 @@ public class JQMapInteractiveFeature
 				continue;
 			}
 			propertySB.append(
-					(inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + interactiveFeatureProperties.name() + (inline ? StaticStrings.STRING_DOUBLE_QUOTES_SPACE : "") + ":");
+					(inline ? STRING_DOUBLE_QUOTES : "") + interactiveFeatureProperties.name() + (inline ? STRING_DOUBLE_QUOTES_SPACE : "") + ":");
 			String bleh = interactiveFeatureProperties.getClassType()
 			                                          .getSimpleName();
 			if ("Double".equals(bleh) || "Boolean".equals(bleh))
 			{
-				propertySB.append((inline ? StaticStrings.STRING_DOUBLE_QUOTES : "") + object + (inline ? StaticStrings.STRING_DOUBLE_QUOTES : ""));
+				propertySB.append((inline ? STRING_DOUBLE_QUOTES : "") + object + (inline ? STRING_DOUBLE_QUOTES : ""));
 			}
 			else
 			{
-				propertySB.append(StaticStrings.STRING_DOUBLE_QUOTES + object + StaticStrings.STRING_DOUBLE_QUOTES);
+				propertySB.append(STRING_DOUBLE_QUOTES + object + STRING_DOUBLE_QUOTES);
 			}
 
 			if (current != appliedProperties.size())
 			{
-				propertySB.append(StaticStrings.STRING_COMMNA);
+				propertySB.append(STRING_COMMNA);
 			}
 		}
 		return propertySB.toString();

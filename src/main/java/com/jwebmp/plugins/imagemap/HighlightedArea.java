@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.guicedee.guicedinjection.json.StaticStrings.STRING_COMMNA;
 import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
