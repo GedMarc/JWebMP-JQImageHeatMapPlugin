@@ -36,7 +36,7 @@ import com.jwebmp.core.plugins.ComponentInformation;
 import com.jwebmp.core.utilities.StaticStrings;
 import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 
