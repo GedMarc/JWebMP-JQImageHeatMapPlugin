@@ -4,7 +4,7 @@ module com.jwebmp.plugins.imagemap {
 	requires com.jwebmp.core;
 	requires com.guicedee.logmaster;
 
-	requires java.validation;
+	requires jakarta.validation;
 	requires java.logging;
 	requires com.jwebmp.plugins.jqgradientlinear;
 	requires com.guicedee.guicedinjection;
