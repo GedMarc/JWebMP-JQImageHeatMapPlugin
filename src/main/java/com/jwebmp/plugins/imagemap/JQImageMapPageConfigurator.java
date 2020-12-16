@@ -18,6 +18,7 @@ package com.jwebmp.plugins.imagemap;
 
 import com.jwebmp.core.Page;
 import com.jwebmp.core.plugins.PluginInformation;
+import com.jwebmp.core.plugins.PluginStatus;
 import com.jwebmp.core.services.IPageConfigurator;
 
 import jakarta.validation.constraints.NotNull;
@@ -37,10 +38,14 @@ import jakarta.validation.constraints.NotNull;
 		pluginSourceUrl = "https://sourceforge.net/p/jwebswing/jquery-image-heatmap/ci/master/tree/",
 		pluginWikiUrl = "https://github.com/GedMarc/JWebMP-JQImageHeatMapPlugin/wiki",
 		pluginOriginalHomepage = "http://davidlynch.org/blog/2008/03/maphilight-image-map-mouseover-highlighting/",
-		pluginDownloadUrl = "https://sourceforge.net/projects/jwebswing/files/plugins/JQImageHeatMapPlugin.jar/download",
-		pluginIconUrl = "bower_components/jquery-image-heatmap/image_map_logo.jpg",
-		pluginIconImageUrl = "bower_components/jquery-image-heatmap/image_map_logo.png",
-		pluginLastUpdatedDate = "2017/03/04"
+		pluginDownloadUrl = "https://mvnrepository.com/artifact/com.jwebmp.plugins.forms/jwebmp-image-map-heatmap",
+		pluginIconUrl = "",
+		pluginIconImageUrl = "",
+		pluginLastUpdatedDate = "2017/03/04",
+		pluginGroupId = "com.jwebmp.plugins.forms",
+		pluginArtifactId = "jwebmp-image-map-heatmap",
+		pluginModuleName = "com.jwebmp.plugins.imagemap",
+		pluginStatus = PluginStatus.Released
 )
 public class JQImageMapPageConfigurator
 		implements IPageConfigurator<JQImageMapPageConfigurator>

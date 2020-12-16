@@ -24,7 +24,7 @@ import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
  * @since 30 Aug 2015
  */
 public class JQImageMapOptions
-		extends JavaScriptPart
+		extends JavaScriptPart<JQImageMapOptions>
 {
 
 

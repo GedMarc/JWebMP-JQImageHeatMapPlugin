@@ -29,7 +29,7 @@ import static com.guicedee.guicedinjection.json.StaticStrings.*;
  * @since @version @author MMagon
  */
 public class JQMapInteractiveFeature
-		extends Feature<JQMapInteractiveFeature, JavaScriptPart, JQMapInteractiveFeature>
+		extends Feature<JQMapInteractiveFeature, JavaScriptPart<?>, JQMapInteractiveFeature>
 {
 
 

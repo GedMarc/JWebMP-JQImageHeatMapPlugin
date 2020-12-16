@@ -31,7 +31,7 @@ import com.jwebmp.plugins.jqgradientlinear.JQGradientsLinearFeature;
  * @since 2013/11/27 03:06
  */
 public class JQMapLegendFeature
-		extends Feature<JQMapLegendFeature, JavaScriptPart, JQMapLegendFeature>
+		extends Feature<JQMapLegendFeature, JavaScriptPart<?>, JQMapLegendFeature>
 {
 
 

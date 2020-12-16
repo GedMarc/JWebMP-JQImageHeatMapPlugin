@@ -843,7 +843,7 @@ public class JQImageMap<J extends JQImageMap>
 	}
 
 	class Binder
-			extends Feature<Binder, JavaScriptPart, Binder>
+			extends Feature<Binder, JavaScriptPart<?>, Binder>
 	{
 
 

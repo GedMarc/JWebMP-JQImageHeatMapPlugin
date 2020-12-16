@@ -37,9 +37,9 @@ import static com.jwebmp.core.utilities.StaticStrings.*;
  * @author GedMarc
  * @since 15 Feb 2017
  */
-public class HighlightedArea<C extends IComponentHierarchyBase & AreaChildren, J extends HighlightedArea<C, J>>
-		extends Area<C,J>
-		implements ImageMapChildren<C,J>
+public class HighlightedArea<C extends AreaChildren, J extends HighlightedArea<C, J>>
+		extends Area<J>
+		implements ImageMapChildren
 {
 
 	private static final Logger LOG = LogFactory.getInstance()

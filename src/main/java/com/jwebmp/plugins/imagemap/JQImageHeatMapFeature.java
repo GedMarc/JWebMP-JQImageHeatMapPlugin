@@ -29,7 +29,7 @@ import java.util.List;
  * 		<p>
  */
 public class JQImageHeatMapFeature
-		extends Feature<JQImageHeatMapFeature, JavaScriptPart, JQImageHeatMapFeature>
+		extends Feature<JQImageHeatMapFeature, JavaScriptPart<?>, JQImageHeatMapFeature>
 {
 
 
