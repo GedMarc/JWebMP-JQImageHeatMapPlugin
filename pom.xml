@@ -11,7 +11,7 @@
     <groupId>com.jwebmp.plugins.forms</groupId>
     <artifactId>jwebmp-image-map-heatmap</artifactId>
     <packaging>jar</packaging>
-
+    <version>0.0.0_0-SNAPSHOT</version>
     <name>Image Map HeatMap</name>
     <description>The JWebSwing implementation for Image Map HeatMap</description>
     <url>https://github.com/GedMarc/JWebSwing-JQImageHeatMapPlugin</url>
