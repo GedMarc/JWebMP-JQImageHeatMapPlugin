@@ -23,14 +23,14 @@ import com.jwebmp.core.base.html.interfaces.GlobalChildren;
 import com.jwebmp.core.base.html.interfaces.children.AreaChildren;
 import com.jwebmp.core.base.html.interfaces.children.ImageMapChildren;
 import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
-import com.guicedee.logger.LogFactory;
+
 
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.guicedee.guicedinjection.json.StaticStrings.STRING_COMMNA;
+import static com.guicedee.services.jsonrepresentation.json.StaticStrings.STRING_COMMNA;
 import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
@@ -42,8 +42,7 @@ public class HighlightedArea<C extends AreaChildren, J extends HighlightedArea<C
 		implements ImageMapChildren
 {
 
-	private static final Logger LOG = LogFactory.getInstance()
-	                                            .getLogger("HighlightedArea");
+	
 
 	private ImageMapAreaShapes areaShape;
 
@@ -159,7 +158,7 @@ public class HighlightedArea<C extends AreaChildren, J extends HighlightedArea<C
 			}
 			catch (NullPointerException npe)
 			{
-				LOG.log(Level.WARNING, "Area format incorrect", npe);
+				log.log(Level.WARNING, "Area format incorrect", npe);
 			}
 		}
 		return coords;

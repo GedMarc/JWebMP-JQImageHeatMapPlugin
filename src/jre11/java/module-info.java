@@ -4,7 +4,7 @@ module com.jwebmp.plugins.imagemap {
 	exports com.jwebmp.plugins.imagemap;
 
 	requires com.jwebmp.core;
-	requires com.guicedee.logmaster;
+	
 
 	requires jakarta.validation;
 	requires java.logging;

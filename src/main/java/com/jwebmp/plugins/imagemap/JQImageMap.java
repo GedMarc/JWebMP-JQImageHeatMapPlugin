@@ -40,8 +40,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.guicedee.guicedinjection.json.StaticStrings.STRING_COMMNA;
-import static com.guicedee.guicedinjection.json.StaticStrings.STRING_HASH;
+import static com.guicedee.services.jsonrepresentation.json.StaticStrings.STRING_COMMNA;
+import static com.guicedee.services.jsonrepresentation.json.StaticStrings.STRING_HASH;
 import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**

@@ -23,7 +23,7 @@ import com.jwebmp.core.utilities.StaticStrings;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static com.guicedee.guicedinjection.json.StaticStrings.*;
+import static com.guicedee.services.jsonrepresentation.json.StaticStrings.*;
 
 /**
  * @since @version @author MMagon
